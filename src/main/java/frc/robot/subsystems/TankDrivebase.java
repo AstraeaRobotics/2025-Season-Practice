@@ -11,22 +11,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TankDrivebase extends SubsystemBase {
   /** Creates a new TankDrivebase. */
-  private final CANSparkMax sparkMax1;
+  private final CANSparkMax m_motorLF;
   private final CANSparkMax sparkMax2;
   private final CANSparkMax sparkMax3;
   private final CANSparkMax sparkMax4;
   private final RelativeEncoder m_Encoder;
 
   public TankDrivebase(int motorId1,int motorId2, int motorId3, int motorId4) {
-    sparkMax1 = new CANSparkMax(motorId1,CANSparkLowLevel.MotorType.kBrushless);
+    m_motorLF = new CANSparkMax(motorId1,CANSparkLowLevel.MotorType.kBrushless);
     sparkMax2 = new CANSparkMax(motorId2,CANSparkLowLevel.MotorType.kBrushless);
     sparkMax3 = new CANSparkMax(motorId3,CANSparkLowLevel.MotorType.kBrushless);
     sparkMax4 = new CANSparkMax(motorId4,CANSparkLowLevel.MotorType.kBrushless);
-    m_Encoder = sparkMaxOne.getEncoder();
+    m_Encoder = m_motorLF.getEncoder();
     
  }
   public void setSpeed(double speed){
-    sparkMax1.set(speed);
+    m_motorLF.set(speed);
     sparkMax2.set(speed);
     sparkMax3.set(speed);
     sparkMax4.set(speed);
