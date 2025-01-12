@@ -7,6 +7,7 @@ package frc.robot.commands.Tankdrive;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.TankDrivebase;
 
 public class JoystickDrive extends Command {
@@ -39,7 +40,7 @@ public class JoystickDrive extends Command {
     double ySpeed = m_yAxis.getAsDouble();
     if(Math.abs(ySpeed) < m_deadband){ ySpeed = 0; }
 
-    double xSpeed = m_yAxis.getAsDouble();
+    double xSpeed = m_xAxis.getAsDouble();
     if(Math.abs(xSpeed) < m_deadband){ xSpeed = 0; }
 
     m_drivebase.curve(ySpeed, xSpeed, false);

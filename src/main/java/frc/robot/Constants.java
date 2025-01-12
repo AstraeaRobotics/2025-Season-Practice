@@ -57,10 +57,10 @@ public final class Constants {
     public enum GrabberStates {
 
       kGround(0.0, 0),
-      kIntakeCone(1.0, 1),
-      kHoldCone(1.5, 0),
-      kLowerCone(1.0, 0),
-      kDropCone(0.5, -1);
+      kIntakeCone(1.0, 0.1),
+      kRaisedGrabber(1.5, 0),
+      kLoweredGrabber(1.0, 0),
+      kDropCone(0.5, -0.1);
 
       private double encoderVal;
       private double intakeSpeed;
