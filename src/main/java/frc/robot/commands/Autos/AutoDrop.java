@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Autos;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -23,11 +24,11 @@ public class AutoDrop extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelDeadlineGroup(new WaitCommand(1), new SetWinchState(winch, GrabberWinchStates.kLowered)),
-      new ParallelDeadlineGroup(new WaitCommand(1), new SetGrabberState(grabber, GrabberWinchStates.kLowered)),
+      new ParallelCommandGroup(new SetGrabberState(grabber, GrabberWinchStates.kLowered), new SetWinchState(winch, GrabberWinchStates.kLowered)),
+      new WaitCommand(1),
       new ParallelDeadlineGroup(new WaitCommand(1), new SetIntake(grabber, -0.1)),
-      new ParallelDeadlineGroup(new WaitCommand(1), new SetGrabberState(grabber, GrabberWinchStates.kRaised)),
-      new ParallelDeadlineGroup(new WaitCommand(1), new SetWinchState(winch, GrabberWinchStates.kRaised))
+      new ParallelCommandGroup(new SetGrabberState(grabber, GrabberWinchStates.kRaised), new SetWinchState(winch, GrabberWinchStates.kRaised)),
+      new WaitCommand(1)
     );
   }
 }

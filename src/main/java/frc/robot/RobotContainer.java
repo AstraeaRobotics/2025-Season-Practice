@@ -4,11 +4,12 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
+import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
+import frc.robot.commands.Autos.AutoDrop;
+import frc.robot.commands.Grabber.SetGrabberState;
 import frc.robot.commands.Tankdrive.JoystickDrive;
-import frc.robot.subsystems.ExampleSubsystem;
-
+import frc.robot.commands.Winch.SetWinchState;
+import frc.robot.subsystems.GrabberSubsystem;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.subsystems.TankDrivebase;
+import frc.robot.subsystems.WinchSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,12 +26,16 @@ import frc.robot.subsystems.TankDrivebase;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
+  private final GrabberSubsystem m_grabber = new GrabberSubsystem();
+  private final WinchSubsystem m_winch = new WinchSubsystem();
   private final PS4Controller m_controller = new PS4Controller(Constants.OperatorConstants.kDriverControllerPort);
 
   private final TankDrivebase m_driveSubsystem = new TankDrivebase();
   JoystickButton kCircle = new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
+  JoystickButton kTriangle = new JoystickButton(m_controller, PS4Controller.Button.kTriangle.value);
+  JoystickButton kCross = new JoystickButton(m_controller, PS4Controller.Button.kCross.value);
+  JoystickButton kSquare = new JoystickButton(m_controller, PS4Controller.Button.kSquare.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -49,6 +55,11 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
+    kCircle.onTrue(new SetWinchState(m_winch, GrabberWinchStates.kLowered));
+    kTriangle.onTrue(new SetWinchState(m_winch, GrabberWinchStates.kGround));
+    kCross.onTrue(new SetGrabberState(m_grabber, GrabberWinchStates.kLowered));
+    kSquare.onTrue(new SetGrabberState(m_grabber, GrabberWinchStates.kRaised));
+
   }
 
   /**
@@ -57,7 +68,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return new AutoDrop(m_grabber, m_winch);
   }
 }

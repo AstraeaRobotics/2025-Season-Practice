@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
@@ -47,7 +48,9 @@ public class GrabberSubsystem extends SubsystemBase {
   public void setIntake(double speed){m_intakeMotor.set(speed);}
 
   public double getPivotPID(){
-    return m_pivotPid.calculate(getPivotPos(), m_desiredAngle);
+    double pidOutput = m_pivotPid.calculate(getPivotPos(), m_desiredAngle);
+    SmartDashboard.putNumber("Grabber Pivot PID", pidOutput);
+    return pidOutput;
   }
 
   public void setState(GrabberWinchStates state){
@@ -57,6 +60,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Grabber Encoder", getPivotPos());
     m_pivotMotor.set(getPivotPID());
   }
 }

@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
@@ -53,7 +54,9 @@ public class WinchSubsystem extends SubsystemBase {
   }
 
   public double getPIDVal(){
-    return m_pid.calculate(getPos(), m_desiredSetpoint);
+    double pidOutput = m_pid.calculate(getPos(), m_desiredSetpoint);
+    SmartDashboard.putNumber("Winch Pivot PID", pidOutput);
+    return pidOutput;
   }
 
   public void setWinch(double speed){
@@ -63,6 +66,7 @@ public class WinchSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Winch Encoder", getPos());
     setWinch(getPIDVal());
   }
 }
