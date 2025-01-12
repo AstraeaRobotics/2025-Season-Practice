@@ -16,4 +16,28 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  
+  public static class WinchConstants{
+    
+    public static final int kWinchPort = 3;
+    public static final double kP = 0.01;
+
+    public enum WinchStates {
+      kGround(0.0),
+      kTarget(1.0);
+
+      private double encoderVal;
+
+      private WinchStates(double encoderVal){
+        this.encoderVal = encoderVal;
+      }
+
+      public double getEncoderVal(){
+        return encoderVal;
+      }
+
+    }
+
+    public static double kEncoderToDegrees = 0.0;
+  }
 }
