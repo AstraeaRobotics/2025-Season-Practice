@@ -51,8 +51,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     return m_elevatorPidController.calculate(getEncoder(), setpoint);
   }
 
-  public void setMotor(double speed) {
+  public void setMotorPID() {
     m_winchMotor.set(getMotorPID());
+  }
+
+  public void setMotor(double speed){
+    m_winchMotor.set(speed);
   }
 
   private void configureMotors() {
@@ -65,6 +69,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Encoder", m_encoder.getPosition());
     SmartDashboard.putNumber("PID Output", getMotorPID());
 
-    setMotor(getMotorPID());
+    setMotorPID();
   }
 }

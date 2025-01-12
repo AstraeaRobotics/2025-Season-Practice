@@ -14,10 +14,12 @@ import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.MoveWinch;
+import frc.robot.commands.PivotGrabber;
 import frc.robot.commands.SetState;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TankDriveBase;
 
 /**
@@ -31,6 +33,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
   private final TankDriveBase m_TankDriveBase = new TankDriveBase();
+  private final GrabberSubsystem m_GrabberSubsystem = new GrabberSubsystem();
 
   private final PS4Controller m_Controller = new PS4Controller(0);
   private final JoystickButton kTriangle = new JoystickButton(m_Controller,PS4Controller.Button.kTriangle.value);
@@ -38,7 +41,7 @@ public class RobotContainer {
   private final JoystickButton kSquare = new JoystickButton(m_Controller,PS4Controller.Button.kSquare.value);
   private final JoystickButton kr1 = new JoystickButton(m_Controller,PS4Controller.Button.kR1.value);
   private final JoystickButton kl1 = new JoystickButton(m_Controller,PS4Controller.Button.kL1.value);
-
+  
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -69,8 +72,8 @@ public class RobotContainer {
     kTriangle.onTrue(new SetState(elevatorSub, WinchStates.kBottom));
     kCircle.onTrue(new SetState(elevatorSub, WinchStates.kMiddle));
     kSquare.onTrue(new SetState(elevatorSub, WinchStates.kTop));
-    kr1.whileTrue(new MoveWinch(elevatorSub, 0.5));
-    kl1.whileTrue(new MoveWinch(elevatorSub, -0.5));
+    kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.1));
+    kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.1));
 
   }
 
