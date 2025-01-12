@@ -32,7 +32,7 @@ public class GrabberSubsystem extends SubsystemBase {
     m_pivotMotor = new CANSparkMax(Constants.GrabberConstants.kPivotPort, CANSparkLowLevel.MotorType.kBrushless);
 
     m_absPivotEncoder = m_pivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    m_absPivotEncoder.setPositionConversionFactor(Constants.GrabberConstants.kEncoderToRadians);
+    m_absPivotEncoder.setPositionConversionFactor(Constants.GrabberConstants.kEncoderToDegrees);
 
     m_pivotPid = new PIDController(Constants.GrabberConstants.kPivotP, 0, 0);
 
