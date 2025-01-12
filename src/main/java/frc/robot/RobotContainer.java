@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -41,6 +42,10 @@ public class RobotContainer {
   private final JoystickButton kSquare = new JoystickButton(m_Controller,PS4Controller.Button.kSquare.value);
   private final JoystickButton kr1 = new JoystickButton(m_Controller,PS4Controller.Button.kR1.value);
   private final JoystickButton kl1 = new JoystickButton(m_Controller,PS4Controller.Button.kL1.value);
+  private final JoystickButton kCross = new JoystickButton(m_Controller,PS4Controller.Button.kCross.value);
+  private final JoystickButton kr2 = new JoystickButton(m_Controller,PS4Controller.Button.kR2.value);
+  private final JoystickButton kl2 = new JoystickButton(m_Controller,PS4Controller.Button.kL2.value);
+
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -72,6 +77,9 @@ public class RobotContainer {
     kTriangle.onTrue(new SetState(elevatorSub, WinchStates.kBottom));
     kCircle.onTrue(new SetState(elevatorSub, WinchStates.kMiddle));
     kSquare.onTrue(new SetState(elevatorSub, WinchStates.kTop));
+    kCross.onTrue(new SetState(m_GrabberSubsystem, GrabberStates.kBottom));
+    kl2.onTrue(new SetState(m_GrabberSubsystem, GrabberStates.kMiddle));
+    kr2.onTrue(new SetState(m_GrabberSubsystem, GrabberStates.kTop));
     kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.1));
     kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.1));
 
