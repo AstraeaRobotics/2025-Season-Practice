@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Tankdrive;
 
+import edu.wpi.first.util.sendable.SendableBuilder.BackendKind;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TankDrivebase;
 
@@ -16,12 +17,30 @@ public class DriveToDistance extends Command {
   private final TankDrivebase m_drivebase;
 
   private final double m_speed;
+  private final boolean m_backwards;
 
-  public DriveToDistance(TankDrivebase tankDrive, double meters, double speed) {
+/**
+ * 
+ * @param tankDrive
+ * @param meters
+ * @param speed must be negative if the robot is to drive backwards, positive if it is to drive forwards
+ * @param backwards true if the robot is to drive the distance backwards
+ */
+
+
+  public DriveToDistance(TankDrivebase tankDrive, double meters, double speed, boolean backwards) {
+
+
     m_drivebase = tankDrive;
     m_initialDist = tankDrive.getEncoder();
-    m_endingDist = m_initialDist + meters;
+    m_backwards  = backwards;
     m_speed = speed;
+
+    if(m_backwards){
+      m_endingDist = m_initialDist - meters;
+    } else {
+      m_endingDist = m_initialDist + meters;
+    }
     
     addRequirements(m_drivebase);
   }
@@ -45,7 +64,10 @@ public class DriveToDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_drivebase.getEncoder() >= m_endingDist){
+    if(m_drivebase.getEncoder() >= m_endingDist && !m_backwards){
+      return true;
+    }
+    if(m_drivebase.getEncoder() <= m_endingDist && m_backwards){
       return true;
     }
     return false;

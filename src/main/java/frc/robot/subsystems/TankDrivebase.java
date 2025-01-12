@@ -21,10 +21,10 @@ public class TankDrivebase extends SubsystemBase {
   private final RelativeEncoder m_encoderL;
 
   public TankDrivebase() {
-    m_motorLF = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorLFPort,CANSparkLowLevel.MotorType.kBrushless);
-    m_motorRF = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorRFPort,CANSparkLowLevel.MotorType.kBrushless);
-    m_motorLB = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorLBPort,CANSparkLowLevel.MotorType.kBrushless);
-    m_motorRB = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorRBPort,CANSparkLowLevel.MotorType.kBrushless);
+    m_motorLF = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorLFPort, CANSparkLowLevel.MotorType.kBrushless);
+    m_motorRF = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorRFPort, CANSparkLowLevel.MotorType.kBrushless);
+    m_motorLB = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorLBPort, CANSparkLowLevel.MotorType.kBrushless);
+    m_motorRB = new CANSparkMax(Constants.TankDrivebaseConstants.kMotorRBPort, CANSparkLowLevel.MotorType.kBrushless);
 
     m_encoderL = m_motorLF.getEncoder();
     m_encoderL.setPosition(0);
