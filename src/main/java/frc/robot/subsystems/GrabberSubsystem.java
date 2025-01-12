@@ -12,7 +12,7 @@ import com.revrobotics.SparkAbsoluteEncoder.Type;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.GrabberConstants.GrabberStates;
+import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
 
 public class GrabberSubsystem extends SubsystemBase {
   
@@ -22,26 +22,24 @@ public class GrabberSubsystem extends SubsystemBase {
 
   private final CANSparkMax m_intakeMotor;
 
-  private GrabberStates m_state;
+  private GrabberWinchStates m_state;
   private double m_desiredAngle;
-  private double m_desiredIntakeSpeed;
   
   public GrabberSubsystem() {
-    m_intakeMotor = new CANSparkMax(Constants.GrabberConstants.kIntakePort, CANSparkLowLevel.MotorType.kBrushless);
+    m_intakeMotor = new CANSparkMax(Constants.GrabberWinchConstants.kIntakePort, CANSparkLowLevel.MotorType.kBrushless);
     
-    m_pivotMotor = new CANSparkMax(Constants.GrabberConstants.kPivotPort, CANSparkLowLevel.MotorType.kBrushless);
+    m_pivotMotor = new CANSparkMax(Constants.GrabberWinchConstants.kPivotPort, CANSparkLowLevel.MotorType.kBrushless);
 
     m_absPivotEncoder = m_pivotMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    m_absPivotEncoder.setPositionConversionFactor(Constants.GrabberConstants.kEncoderToRadians);
+    m_absPivotEncoder.setPositionConversionFactor(Constants.GrabberWinchConstants.kEncoderToRadians);
 
-    m_pivotPid = new PIDController(Constants.GrabberConstants.kPivotP, 0, 0);
+    m_pivotPid = new PIDController(Constants.GrabberWinchConstants.kPivotP, 0, 0);
 
-    m_state = GrabberStates.kGround;
-    m_desiredAngle = m_state.getEncoderVal();
-    m_desiredIntakeSpeed = m_state.getIntakeSpeed();
+    m_state = GrabberWinchStates.kGround;
+    m_desiredAngle = m_state.getGrabberVal();
   }
 
-  public GrabberStates getCurrState() { return m_state; }
+  public GrabberWinchStates getCurrState() { return m_state; }
   public double getPivotPos() { return m_absPivotEncoder.getPosition(); }
   public double getDesiredAngle() { return m_desiredAngle; }
 
@@ -52,15 +50,13 @@ public class GrabberSubsystem extends SubsystemBase {
     return m_pivotPid.calculate(getPivotPos(), m_desiredAngle);
   }
 
-  public void setState(GrabberStates state){
+  public void setState(GrabberWinchStates state){
     m_state = state;
-    m_desiredAngle = m_state.getEncoderVal();
-    m_desiredIntakeSpeed = m_state.getIntakeSpeed();
+    m_desiredAngle = m_state.getGrabberVal();
   }
 
   @Override
   public void periodic() {
     m_pivotMotor.set(getPivotPID());
-    m_intakeMotor.set(m_desiredIntakeSpeed);
   }
 }

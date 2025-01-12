@@ -4,18 +4,15 @@
 
 package frc.robot.subsystems;
 
-import java.io.PipedInputStream;
-
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.WinchConstants.WinchStates;
+import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
 
 public class WinchSubsystem extends SubsystemBase {
   
@@ -23,22 +20,22 @@ public class WinchSubsystem extends SubsystemBase {
   private final AbsoluteEncoder m_absEncoder;
   private final PIDController m_pid;
 
-  private WinchStates m_state;
+  private GrabberWinchStates m_state;
   private double m_desiredSetpoint;
 
   public WinchSubsystem() {
-    m_winchMotor = new CANSparkMax(Constants.WinchConstants.kWinchPort, CANSparkLowLevel.MotorType.kBrushless);
+    m_winchMotor = new CANSparkMax(Constants.GrabberWinchConstants.kWinchPort, CANSparkLowLevel.MotorType.kBrushless);
 
     m_absEncoder = m_winchMotor.getAbsoluteEncoder(Type.kDutyCycle);
-    m_absEncoder.setPositionConversionFactor(Constants.WinchConstants.kEncoderToDegrees);
+    m_absEncoder.setPositionConversionFactor(Constants.GrabberWinchConstants.kEncoderToRadians);
 
-    m_pid = new PIDController(Constants.WinchConstants.kP, 0, 0);
+    m_pid = new PIDController(Constants.GrabberWinchConstants.kWinchP, 0, 0);
 
-    m_state = WinchStates.kGround;
-    m_desiredSetpoint = m_state.getEncoderVal();
+    m_state = GrabberWinchStates.kGround;
+    m_desiredSetpoint = m_state.getWinchVal();
   }
 
-  public WinchStates getCurrState(){
+  public GrabberWinchStates getCurrState(){
     return m_state;
   }
 
@@ -50,9 +47,9 @@ public class WinchSubsystem extends SubsystemBase {
     return  m_absEncoder.getPosition();
   }
 
-  public void setState(WinchStates state){
+  public void setState(GrabberWinchStates state){
     m_state = state;
-    m_desiredSetpoint = m_state.getEncoderVal();
+    m_desiredSetpoint = m_state.getWinchVal();
   }
 
   public double getPIDVal(){

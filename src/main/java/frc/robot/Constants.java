@@ -18,34 +18,8 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
-  
-  public static class WinchConstants{
 
-    //dummy values (all in this class)
-    
-    public static final int kWinchPort = 3;
-    public static final double kP = 0.01;
-
-    public enum WinchStates {
-      kGround(0.0),
-      kTarget(1.0);
-
-      private double encoderVal;
-
-      private WinchStates(double encoderVal){
-        this.encoderVal = encoderVal;
-      }
-
-      public double getEncoderVal(){
-        return encoderVal;
-      }
-
-    }
-
-    public static double kEncoderToDegrees = 0.0;
-  }
-
-  public static class GrabberConstants{
+  public static class GrabberWinchConstants{
 
     //dummy values (all in this class)
 
@@ -53,29 +27,31 @@ public final class Constants {
     public static final int kIntakePort = 2;
 
     public static final double kPivotP = 0.01;
+    public static final double kWinchP = 0.01;
+
+    public static final int kWinchPort = 0;
     
-    public enum GrabberStates {
+    
+    public enum GrabberWinchStates {
 
-      kGround(0.0, 0),
-      kIntakeCone(1.0, 0.1),
-      kRaisedGrabber(1.5, 0),
-      kLoweredGrabber(1.0, 0),
-      kDropCone(0.5, -0.1);
+      kGround(0.0, 0.01),
+      kRaised(1.5, 0),
+      kLowered(1.0, 0);
 
-      private double encoderVal;
-      private double intakeSpeed;
+      private double grabberVal;
+      private double winchVal;
 
-      private GrabberStates(double encoderVal, double intakeSpeed){
-        this.encoderVal = encoderVal;
-        this.intakeSpeed = intakeSpeed;
+      private GrabberWinchStates(double grabberVal, double winchVal){
+        this.grabberVal = grabberVal;
+        this.winchVal = winchVal;
       }
 
-      public double getEncoderVal(){
-        return encoderVal;
+      public double getGrabberVal(){
+        return grabberVal;
       }
 
-      public double getIntakeSpeed(){
-        return intakeSpeed;
+      public double getWinchVal(){
+        return winchVal;
       }
     }
 
