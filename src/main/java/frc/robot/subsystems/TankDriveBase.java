@@ -17,10 +17,8 @@ public class TankDriveBase extends SubsystemBase {
   CANSparkMax rightMotor1;  
   CANSparkMax rightMotor2;
 
-  RelativeEncoder leftEncoder1;
-  RelativeEncoder rightEncoder1;
-  RelativeEncoder leftEncoder2;
-  RelativeEncoder rightEncoder2;
+  RelativeEncoder leftEncoder;
+  RelativeEncoder rightEncoder;
 
   /** Creates a new TankDriveBase. */
   public TankDriveBase() {
@@ -29,20 +27,20 @@ public class TankDriveBase extends SubsystemBase {
     rightMotor1 = new CANSparkMax(0, MotorType.kBrushless);
     rightMotor2 = new CANSparkMax(0, MotorType.kBrushless);
 
-    leftEncoder1 = leftMotor1.getEncoder();
-    rightEncoder1 = rightMotor1.getEncoder();
+    leftEncoder = leftMotor1.getEncoder();
+    rightEncoder = rightMotor1.getEncoder();
 
 
     configureMotors();
   }
 
   private void configureMotors() {
-    leftEncoder1.setPosition(0);
-    rightEncoder1.setPosition(0);
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
   
 
-    leftEncoder1.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
-    rightEncoder1.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
+    leftEncoder.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
+    rightEncoder.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
  
 
     leftMotor1.setInverted(false);
@@ -66,11 +64,11 @@ public class TankDriveBase extends SubsystemBase {
   } 
 
   public double getLeftEncoder1Position() {
-    return leftEncoder1.getPosition();
+    return leftEncoder.getPosition();
   }
 
   public double getRightEncoder1Position() {
-    return rightEncoder1.getPosition();
+    return rightEncoder.getPosition();
   }
 
 
