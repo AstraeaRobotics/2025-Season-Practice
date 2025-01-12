@@ -45,7 +45,7 @@ public class GrabberSubsystem extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
- /*  public void setState(GrabberStates newState){
+ public void setState(GrabberStates newState){
     m_state = newState;
     setpoint = m_state.getGrabberSetpoint();
     m_grabberPidController.setSetpoint(setpoint);  
@@ -60,9 +60,9 @@ public class GrabberSubsystem extends SubsystemBase {
   }
 
   public void setMotorPID() {
-    m_grabberMotor.set(getMotorPID());
+    pivotMotor.set(getMotorPID());
   }
-  */
+
   
   public double getPivotEncoder() {
     return pivotEncoder.getPosition();
