@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.Tankdrive.JoystickDrive;
 import frc.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -30,15 +31,11 @@ public class RobotContainer {
   private final TankDrivebase m_driveSubsystem = new TankDrivebase();
   JoystickButton kCircle = new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
-    
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    m_driveSubsystem.setDefaultCommand(new JoystickDrive(m_driveSubsystem, m_controller::getLeftY, m_controller::getLeftX));
   }
 
   /**
