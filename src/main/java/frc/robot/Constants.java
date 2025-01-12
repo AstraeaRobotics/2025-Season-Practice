@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.TankDrivebase;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -55,8 +57,10 @@ public final class Constants {
     public enum GrabberStates {
 
       kGround(0.0, 0),
-      kIntake(1.0, 1),
-      kShoot(0.5, -1);
+      kIntakeCone(1.0, 1),
+      kHoldCone(1.5, 0),
+      kLowerCone(1.0, 0),
+      kDropCone(0.5, -1);
 
       private double encoderVal;
       private double intakeSpeed;
@@ -75,6 +79,15 @@ public final class Constants {
       }
     }
 
-    public static double kEncoderToDegrees;
+    public static double kEncoderToRadians;
   }
+
+  public static class TankDrivebaseConstants{
+    public static final int kMotorLFPort = 5;
+    public static final int kMotorRFPort = 6;
+    public static final int kMotorLBPort = 7;
+    public static final int kMotorRBPort = 8; 
+  }
+
+  public static final double RotToMeters = 0;
 }
