@@ -8,15 +8,19 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants.PivotSpeeds;
 import frc.robot.Constants.PivotConstants.PivotStates;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.pivot.MoveToPivotState;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PivotSubsystemNew;
+import frc.robot.subsystems.TankDriveSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.pivot.SetPivotState;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,10 +35,13 @@ public class RobotContainer {
   JoystickButton kTriangle=new JoystickButton(m_controller, PS4Controller.Button.kTriangle.value);
   JoystickButton kCross=new JoystickButton(m_controller, PS4Controller.Button.kCross.value);
   JoystickButton kSquare=new JoystickButton(m_controller, PS4Controller.Button.kSquare.value);
+  JoystickButton kCircle=new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
   PivotSubsystemNew pivotSub1;
+  TankDriveSubsystem tankSub;
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-      pivotSub1.setDefaultCommand(new MoveToPivotState(pivotSub1, PivotSpeeds.kMedium));
+      
+ pivotSub1.setDefaultCommand(new MoveToPivotState(pivotSub1, PivotSpeeds.kMedium));
     // Configure the trigger bindings
     configureBindings();}
   
@@ -53,10 +60,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    kTriangle.onTrue(SetPivotState(pivotSub1, PivotStates.kground1));
-      kCross.onTrue( SetPivotState(pivotSub1, PivotStates.kMid1));
-      kSquare.onTrue(SetPivotState(pivotSub1, PivotStates.kHigh1));
-
+    kTriangle.onTrue(new SetPivotState(pivotSub1, PivotStates.kground1));
+    kSquare.onTrue(new SetPivotState(pivotSub1, PivotStates.kMid1));
+    kCross.onTrue(new SetPivotState(pivotSub1, PivotStates.kHigh1));
+    kCircle.onTrue(new DriveToDistance(tankSub, 0.1, 0.1));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     
