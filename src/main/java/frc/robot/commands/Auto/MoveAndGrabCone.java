@@ -6,10 +6,12 @@ package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.IntakeCone;
+import frc.robot.commands.SetGrabberState;
 import frc.robot.commands.SetState;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TankDriveBase;
+import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -24,9 +26,12 @@ public class MoveAndGrabCone extends SequentialCommandGroup {
     addCommands(
     new DriveToDistance(m_TankDriveBase, distance1, driveSpeed1),
     new SetState(m_elevatorSubsystem, WinchStates.kBottom),
+    new SetGrabberState(m_grabberSubsystem, GrabberStates.kBottom),
     new IntakeCone(m_grabberSubsystem, intakeSpeed1),
     new DriveToDistance(m_TankDriveBase, distance2, driveSpeed2),
     new IntakeCone(m_grabberSubsystem, intakeSpeed2),
-    new SetState(m_elevatorSubsystem, WinchStates.kTop));
+    new SetState(m_elevatorSubsystem, WinchStates.kTop),
+    new SetGrabberState(m_grabberSubsystem, GrabberStates.kMiddle));
+
   }
 }
