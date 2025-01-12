@@ -56,7 +56,7 @@ public class WinchSubsystem extends SubsystemBase {
   }
 
   public double getPIDVal(){
-    return m_pid.calculate(getPos());
+    return m_pid.calculate(getPos(), m_desiredSetpoint);
   }
 
   public void setWinch(double speed){
