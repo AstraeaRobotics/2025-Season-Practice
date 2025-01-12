@@ -18,6 +18,8 @@ public final class Constants {
   }
   
   public static class WinchConstants{
+
+    //dummy values (all in this class)
     
     public static final int kWinchPort = 3;
     public static final double kP = 0.01;
@@ -39,5 +41,40 @@ public final class Constants {
     }
 
     public static double kEncoderToDegrees = 0.0;
+  }
+
+  public static class GrabberConstants{
+
+    //dummy values (all in this class)
+
+    public static final int kPivotPort = 1;
+    public static final int kIntakePort = 2;
+
+    public static final double kPivotP = 0.01;
+    
+    public enum GrabberStates {
+
+      kGround(0.0, 0),
+      kIntake(1.0, 1),
+      kShoot(0.5, -1);
+
+      private double encoderVal;
+      private double intakeSpeed;
+
+      private GrabberStates(double encoderVal, double intakeSpeed){
+        this.encoderVal = encoderVal;
+        this.intakeSpeed = intakeSpeed;
+      }
+
+      public double getEncoderVal(){
+        return encoderVal;
+      }
+
+      public double getIntakeSpeed(){
+        return intakeSpeed;
+      }
+    }
+
+    public static double kEncoderToDegrees;
   }
 }
