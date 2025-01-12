@@ -55,10 +55,8 @@ public final class Constants {
     public enum GrabberStates {
 
       kGround(0.0, 0),
-      kIntakeCone(1.0, 1),
-      kHoldCone(1.5, 0),
-      kLowerCone(1.0, 0),
-      kDropCone(0.5, -1);
+      kIntake(1.0, 1),
+      kShoot(0.5, -1);
 
       private double encoderVal;
       private double intakeSpeed;
@@ -77,6 +75,6 @@ public final class Constants {
       }
     }
 
-    public static double kEncoderToRadians;
+    public static double kEncoderToDegrees;
   }
 }
