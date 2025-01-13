@@ -17,14 +17,19 @@ import frc.robot.Constants;
 public class TankDriveSub extends SubsystemBase {
   /** Creates a new TankDriveSub. */
   CANSparkMax leftMotor;
+  CANSparkMax leftMotor2;
   CANSparkMax rightMotor;
+  CANSparkMax rightMotor2;
+
   RelativeEncoder leftEncoder;
   RelativeEncoder rightEncoder;
 
   public TankDriveSub() {
     leftMotor = new CANSparkMax(1, MotorType.kBrushless);
+    leftMotor2 = new CANSparkMax(2, MotorType.kBrushless);
     
-    rightMotor = new CANSparkMax(0, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(4, MotorType.kBrushless);
+    rightMotor2 = new CANSparkMax(6, MotorType.kBrushless);
     
 
     leftEncoder = leftMotor.getEncoder();
@@ -51,9 +56,11 @@ public class TankDriveSub extends SubsystemBase {
 
   public void setLeftMotor(double speed){
     leftMotor.set(speed);
+    leftMotor2.set(speed);
   }
   public void setRightMotor(double speed){
     rightMotor.set(speed);
+    rightMotor2.set(speed);
   }
   public double getLeftPosition() {
     return leftEncoder.getPosition();
@@ -76,8 +83,6 @@ public class TankDriveSub extends SubsystemBase {
     setLeftMotor(speeds.left);
     setRightMotor(speeds.right);
   }
-
-
 
   @Override
   public void periodic() {
