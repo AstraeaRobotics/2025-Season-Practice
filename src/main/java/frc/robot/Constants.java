@@ -50,9 +50,9 @@ public final class Constants {
     public static final double kD = 0.0;
 
     public enum GrabberStates {
-      kLow(0),
+      kLow(0.23),
       kMid(10),
-      kHigh(20);
+      kHigh(0.75);
 
       private double grabberSetPoint;
 

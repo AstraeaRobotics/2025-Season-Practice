@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class GrabberSubsystem extends SubsystemBase {
   CANSparkMax pivotMotor;
   CANSparkMax intakeMotor;
-  RelativeEncoder pivotEncoder;
+  AbsoluteEncoder pivotEncoder;
   RelativeEncoder intakeEncoder;
   GrabberStates state;
   double setPoint;

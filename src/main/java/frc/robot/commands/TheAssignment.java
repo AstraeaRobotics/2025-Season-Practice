@@ -28,7 +28,7 @@ public class TheAssignment extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelCommandGroup(
-        new DriveToDistance(driveSub, driveSpeed, distance),
+        //new DriveToDistance(driveSub, driveSpeed, distance),
         new SetGrabberState(grabberSub, GrabberStates.kMid),
         new SetWinchState(winchSub, WinchStates.kBottom)
       ),
@@ -41,7 +41,7 @@ public class TheAssignment extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new SetGrabberState(grabberSub, GrabberStates.kHigh),
         new SetWinchState(winchSub, WinchStates.kTop),
-        new DriveToDistance(driveSub, -driveSpeed, distance)
+        //new DriveToDistance(driveSub, -driveSpeed, distance)
       ),
 
       new ParallelDeadlineGroup(
