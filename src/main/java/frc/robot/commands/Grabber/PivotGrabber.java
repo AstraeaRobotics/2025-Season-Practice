@@ -18,10 +18,9 @@ public class PivotGrabber extends Command {
   double speed;
 
   /** Creates a new MoveToGrabberState. */
-  public PivotGrabber(GrabberSubsystem grabberSub, GrabberStates state, double speed) {
+  public PivotGrabber(GrabberSubsystem grabberSub, double speed) {
     this.grabberSub=grabberSub;
     this.speed=speed;
-    this.state=state;
     addRequirements(grabberSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -38,9 +37,10 @@ public class PivotGrabber extends Command {
   @Override
   public void execute() {
     currentSetPoint = grabberSub.getPivotEncoder();
-    if (grabberSetPoint>currentSetPoint){
+
+    if (grabberSetPoint > currentSetPoint){
       grabberSub.movePivotMotor(speed);
-    } else if (grabberSetPoint<currentSetPoint){
+    } else if (grabberSetPoint < currentSetPoint){
       grabberSub.movePivotMotor(-speed);
     } else {
       grabberSub.movePivotMotor(0);

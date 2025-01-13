@@ -48,6 +48,11 @@ public class WinchSubsystem extends SubsystemBase {
       return m_state;
     }
 
+    public void setWinchState(WinchStates newState) {
+      m_state = newState;
+      setpoint = newState.getWinchSetpoint();
+    }
+
     public double getMotorPID() {
       return m_elevatorPidController.calculate(getEncoder(), setpoint);
     }

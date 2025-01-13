@@ -25,6 +25,7 @@ public class GrabberSubsystem extends SubsystemBase {
   public GrabberSubsystem() {
     pivotMotor= new CANSparkMax(1, MotorType.kBrushless);
     intakeMotor= new CANSparkMax(1, MotorType.kBrushless);
+    
     pivotEncoder = pivotMotor.getEncoder();
     intakeEncoder= intakeMotor.getEncoder();
     configureMotors();
