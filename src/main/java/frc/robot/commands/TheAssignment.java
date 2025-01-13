@@ -34,8 +34,8 @@ public class TheAssignment extends SequentialCommandGroup {
       ),
 
       new ParallelDeadlineGroup(
-        new MoveIntake(grabberSub, intakeSpeed),
-        new WaitCommand(1.5)
+        new WaitCommand(1.5),
+        new MoveIntake(grabberSub, intakeSpeed)
       ),
 
       new ParallelCommandGroup(
@@ -45,8 +45,8 @@ public class TheAssignment extends SequentialCommandGroup {
       ),
 
       new ParallelDeadlineGroup(
-        new MoveIntake(grabberSub, -intakeSpeed),
-        new WaitCommand(1.5)
+        new WaitCommand(1.5),
+        new MoveIntake(grabberSub, -intakeSpeed)
       )
     );
   }
