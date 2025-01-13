@@ -13,6 +13,7 @@ import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.Grabber.PivotGrabber;
+import frc.robot.commands.Grabber.SetGrabberState;
 import frc.robot.commands.Winch.SetWinchState;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -62,9 +63,9 @@ public class RobotContainer {
     kTriangle.onTrue(new SetWinchState(elevatorSub, WinchStates.kBottom));
     kCircle.onTrue(new SetWinchState(elevatorSub, WinchStates.kMiddle));
     kSquare.onTrue(new SetWinchState(elevatorSub, WinchStates.kTop));
-    kCross.onTrue(new SetWinchState(m_GrabberSubsystem, GrabberStates.kBottom));
-    kl2.onTrue(new SetWinchState(m_GrabberSubsystem, GrabberStates.kMiddle));
-    kr2.onTrue(new SetWinchState(m_GrabberSubsystem, GrabberStates.kTop));
+    kCross.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kBottom));
+    kl2.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kMiddle));
+    kr2.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kTop));
     kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.1));
     kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.1));
 

@@ -5,10 +5,8 @@
 package frc.robot.commands.Winch;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.GrabberSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,17 +15,13 @@ public class SetWinchState extends InstantCommand {
   ElevatorSubsystem elevatorSub;
   WinchStates state;
   
-  public SetWinchState(ElevatorSubsystem elevatorSub2, WinchStates ktop) {
-    this.elevatorSub = elevatorSub2;
-    this.state = ktop;
+  public SetWinchState(ElevatorSubsystem elevatorSub, WinchStates state) {
+    this.elevatorSub = elevatorSub;
+    this.state = state;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(elevatorSub2);
+    addRequirements(elevatorSub);
   }
-
-  public SetWinchState(GrabberSubsystem m_GrabberSubsystem, GrabberStates ktop) {
-    //TODO Auto-generated constructor stub
-}
 
 // Called when the command is initially scheduled.
   @Override
