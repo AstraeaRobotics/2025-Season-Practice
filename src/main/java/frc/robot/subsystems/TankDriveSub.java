@@ -49,6 +49,12 @@ public class TankDriveSub extends SubsystemBase {
     rightMotor.setInverted(true);
   }
 
+  public void setLeftMotor(double speed){
+    leftMotor.set(speed);
+  }
+  public void setRightMotor(double speed){
+    rightMotor.set(speed);
+  }
   public double getleftPosition() {
     return leftEncoder.getPosition();
   }
@@ -61,6 +67,7 @@ public class TankDriveSub extends SubsystemBase {
   public double getrightVelocity(){
     return rightEncoder.getVelocity();
   }
+
   public void CurveDrive(double speed, double turn, boolean canturninplace){
     WheelSpeeds speeds = DifferentialDrive.curvatureDriveIK(speed, turn, canturninplace);
     setLeftMotor(speeds.left);
