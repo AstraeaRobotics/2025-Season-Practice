@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TankDriveBaseConstants;
 
@@ -71,6 +72,10 @@ public class TankDriveBase extends SubsystemBase {
     return rightEncoder.getPosition();
   }
 
+  public void curveDrive (double xSpeed, double turn, boolean turnInPlace){
+    var speeds = DifferentialDrive.curvatureDriveIK(xSpeed, turn, turnInPlace);
+    moveMotors(speeds.left, speeds.right);
+  }
 
   @Override
   public void periodic() {
