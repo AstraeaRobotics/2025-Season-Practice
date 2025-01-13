@@ -25,6 +25,8 @@ public class RobotContainer {
     private final PS4Controller driverController = new PS4Controller(1);
     private final Joystick driverJoystick = new Joystick(1);
 
+
+
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
@@ -38,7 +40,7 @@ public class RobotContainer {
     configureBindings();
 
     //To set default to drivebase
-    driveSubsystem.setDefaultCommand(new TankDriveCommand(driveSubsystem, driverController, driverJoystick));
+    driveSubsystem.setDefaultCommand(new TankDriveCommand(driveSubsystem, driverController::getLeftY, driverController::getLeftX));
   }
 
   /**

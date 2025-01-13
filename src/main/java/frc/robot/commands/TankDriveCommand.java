@@ -4,26 +4,26 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PS4Controller;
+import org.opencv.video.TrackerNano;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TankDriveSub;
 
 public class TankDriveCommand extends Command {
-  /** Creates a new TankDriveCommand. */
-  TankDriveSub driveSub;
-  PS4Controller controller;
-  Joystick joystick;
+  /** Creates a new TankDrive. */
+  private TankDriveSub m_tanksub;
+  private DoubleSupplier m_speedSupplier;
+  private DoubleSupplier m_turnSupplier;
 
-  public TankDriveCommand(TankDriveSub driveSub, PS4Controller controller,Joystick joystick ) {
-    
-    this.driveSub = driveSub;
-    this.controller = controller;
-    this.joystick = joystick;
-
+  public TankDriveCommand(TankDriveSub driveBase, DoubleSupplier frSpeed, DoubleSupplier turn) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveSub);
+    m_tanksub = driveBase;
+    m_speedSupplier = frSpeed;
+    m_turnSupplier = turn;
+
+    addRequirements(m_tanksub);
   }
 
   // Called when the command is initially scheduled.
@@ -33,14 +33,7 @@ public class TankDriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double forward = -joystick.getY();
-        double rotation = joystick.getX();
-        if (Math.abs(forward) < 0.1 && Math.abs(rotation) < 0.1) {
-            forward = -controller.getLeftY();
-            rotation = controller.getRightX();
-
-    }
-    driveSub.tankDrive(forward, rotation);
+    m_tanksub.CurveDrive(m_speedSupplier.getAsDouble()*.15, m_turnSupplier.getAsDouble(), true);
   }
 
   // Called once the command ends or is interrupted.
@@ -52,6 +45,5 @@ public class TankDriveCommand extends Command {
   public boolean isFinished() {
     return false;
   }
-
-
 }
+
