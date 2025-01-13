@@ -33,7 +33,7 @@ public class JoystickDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(joystickValue.getAsDouble()) >= 0.01){
+    if (Math.abs(joystickValue.getAsDouble()) >= 0.05){
       driveSub.setMotors(joystickValue.getAsDouble());
     } else {
       driveSub.setMotors(0);
