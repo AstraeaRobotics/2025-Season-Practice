@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.Auto.DriveToDistance;
+import frc.robot.commands.Drive.JoystickDrive;
 import frc.robot.subsystems.TankDriveSubsystem;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,7 +16,6 @@ import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.WinchSubsystem;
 import frc.robot.commands.Grabber.*;
 import frc.robot.Constants.GrabberConstants.*;
-import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.TheAssignment;
 
 
@@ -68,10 +68,6 @@ public class RobotContainer {
     kTriangle.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kLow));
     kCross.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kMid));
     kSquare.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kHigh));
-
-    kL1.onTrue(new PivotGrabber(m_grabbersubsystem, 0.1));
-    kL2.onTrue(new PivotGrabber(m_grabbersubsystem, 0.1));
-    kL3.onTrue(new PivotGrabber(m_grabbersubsystem, 0.1));
 
     kR3.onTrue(new TheAssignment(m_grabbersubsystem, m_winchsubsystem,  m_TankDriveSubsystem, 0.1, 0.1, 0.1));
     
