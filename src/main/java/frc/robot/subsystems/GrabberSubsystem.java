@@ -11,6 +11,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.GrabberConstants;
 import frc.robot.Constants.GrabberConstants.GrabberStates;
 
 public class GrabberSubsystem extends SubsystemBase {
@@ -28,8 +29,8 @@ public class GrabberSubsystem extends SubsystemBase {
     pivotEncoder = pivotMotor.getEncoder();
     intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
     intakeEncoder = intakeMotor.getEncoder();
-   // m_state = GrabberStates.kBottom;
-   // m_grabberPidController = new PIDController(GrabberConstants.kP, GrabberConstants.kI, GrabberConstants.kD);
+    m_state = GrabberStates.kBottom;
+    m_grabberPidController = new PIDController(GrabberConstants.kP, GrabberConstants.kI, GrabberConstants.kD);
     
     configureMotors();
   }
@@ -79,8 +80,8 @@ public class GrabberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Grabber Pivot Encoder", getPivotEncoder());
     SmartDashboard.putNumber("Intake Encoder", getIntakeEncoder());
 
-    /*  SmartDashboard.putNumber("PID Output", getMotorPID()); 
-        setMotorPID();
-     */
+     // SmartDashboard.putNumber("PID Output", getMotorPID()); 
+      //  setMotorPID();
+     
   }
 }

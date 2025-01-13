@@ -35,7 +35,7 @@ public class MoveAndGrabCone extends SequentialCommandGroup {
 
       new ParallelDeadlineGroup(
         new IntakeCone(m_grabberSubsystem, intakeSpeed1),
-        new WaitCommand(1)),
+        new WaitCommand(2)),
 
       new DriveToDistance(m_TankDriveBase, distance2, driveSpeed2),
 
@@ -45,6 +45,6 @@ public class MoveAndGrabCone extends SequentialCommandGroup {
 
       new ParallelDeadlineGroup(
         new IntakeCone(m_grabberSubsystem, intakeSpeed2),
-        new WaitCommand(1)));
+        new WaitCommand(2)));
   }
 }

@@ -8,8 +8,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.TankDriveBaseConstants;
 
 public class TankDriveBase extends SubsystemBase {
@@ -20,18 +22,20 @@ public class TankDriveBase extends SubsystemBase {
 
   RelativeEncoder leftEncoder;
   RelativeEncoder rightEncoder;
+  PIDController drivePID;
+
 
   /** Creates a new TankDriveBase. */
   public TankDriveBase() {
-    leftFrontMotor = new CANSparkMax(1, MotorType.kBrushless);
-    leftBackMotor = new CANSparkMax(2, MotorType.kBrushless);
-    rightFrontMotor = new CANSparkMax(3, MotorType.kBrushless);
-    rightBackMotor = new CANSparkMax(4, MotorType.kBrushless);
+    leftFrontMotor = new CANSparkMax(4, MotorType.kBrushless);
+    leftBackMotor = new CANSparkMax(6, MotorType.kBrushless);
+    rightFrontMotor = new CANSparkMax(7, MotorType.kBrushless);
+    rightBackMotor = new CANSparkMax(8, MotorType.kBrushless);
 
     leftEncoder = leftFrontMotor.getEncoder();
     rightEncoder = rightFrontMotor.getEncoder();
 
-
+    drivePID = new PIDController(DriveConstants.kP, DriveConstants.kI, DriveConstants.kD);
     configureMotors();
   }
 
@@ -75,6 +79,15 @@ public class TankDriveBase extends SubsystemBase {
   public void curveDrive (double xSpeed, double turn, boolean turnInPlace){
     var speeds = DifferentialDrive.curvatureDriveIK(xSpeed, turn, turnInPlace);
     moveMotors(speeds.left, speeds.right);
+  }
+
+  public double getMotorPID(double targetDistance) {
+    return drivePID.calculate(getLeftEncoderPosition(), targetDistance);
+
+  }
+
+  public void setMotorPID(double targetDistance) {
+    setMotors(getMotorPID(targetDistance));
   }
 
   @Override

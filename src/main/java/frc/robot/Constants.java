@@ -18,9 +18,17 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class DriveConstants {
+    public static final double kEncoderConversionFactor = 2 * Math.PI;
+    public static final double kP = 0.001;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+  }
+  
   public static class GrabberConstants {
     public static final double kEncoderConversionFactor = 2 * Math.PI;
-    public static final double kP = 0.0;
+    public static final double kP = 0.01;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 

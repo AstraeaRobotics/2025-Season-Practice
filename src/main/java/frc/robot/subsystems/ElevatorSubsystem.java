@@ -36,7 +36,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setState(WinchStates newState){
     m_state = newState;
     setpoint = m_state.getWinchSetpoint();
-    m_elevatorPidController.setSetpoint(setpoint);  
   }
   
   public double getEncoder() {
