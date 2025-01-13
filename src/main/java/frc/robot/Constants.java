@@ -13,6 +13,11 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static class TankDriveConstants{
+    public static final double kdriveConversionFactor = 2*Math.PI*2;
+  }
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
