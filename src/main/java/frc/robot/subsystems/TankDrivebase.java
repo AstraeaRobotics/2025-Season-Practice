@@ -48,13 +48,13 @@ public class TankDrivebase extends SubsystemBase {
     m_motorRF.set(speed);
     m_motorRB.set(speed);
   }
-  public double getEncoder(){
+  public double getPos(){
     return m_encoderL.getPosition();
  }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("TankDrive Encoder", getEncoder());
+    SmartDashboard.putNumber("TankDrive Encoder", getPos());
     // This method will be called once per scheduler run
   }
 }

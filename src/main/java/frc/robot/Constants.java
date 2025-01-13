@@ -63,5 +63,5 @@ public final class Constants {
     public static final int kMotorRBPort = 8; 
   }
 
-  public static final double RotToMeters = 0;
+  public static final double RotToMeters = 2 * Math.PI;
 }

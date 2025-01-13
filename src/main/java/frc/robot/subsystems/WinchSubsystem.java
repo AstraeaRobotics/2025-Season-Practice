@@ -32,7 +32,7 @@ public class WinchSubsystem extends SubsystemBase {
 
     m_pid = new PIDController(Constants.GrabberWinchConstants.kWinchP, 0, 0);
 
-    m_state = GrabberWinchStates.kGround;
+    m_state = GrabberWinchStates.kRaised;
     m_desiredSetpoint = m_state.getWinchVal();
   }
 

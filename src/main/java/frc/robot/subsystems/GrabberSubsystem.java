@@ -36,7 +36,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
     m_pivotPid = new PIDController(Constants.GrabberWinchConstants.kPivotP, 0, 0);
 
-    m_state = GrabberWinchStates.kGround;
+    m_state = GrabberWinchStates.kRaised;
     m_desiredAngle = m_state.getGrabberVal();
   }
 

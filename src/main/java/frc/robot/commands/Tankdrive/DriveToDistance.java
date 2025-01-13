@@ -31,7 +31,7 @@ public class DriveToDistance extends Command {
 
 
     m_drivebase = tankDrive;
-    m_initialDist = tankDrive.getEncoder();
+    m_initialDist = tankDrive.getPos();
     m_backwards  = backwards;
     m_speed = speed;
 
@@ -63,10 +63,10 @@ public class DriveToDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(m_drivebase.getEncoder() >= m_endingDist && !m_backwards){
+    if(m_drivebase.getPos() >= m_endingDist && !m_backwards){
       return true;
     }
-    if(m_drivebase.getEncoder() <= m_endingDist && m_backwards){
+    if(m_drivebase.getPos() <= m_endingDist && m_backwards){
       return true;
     }
     return false;
