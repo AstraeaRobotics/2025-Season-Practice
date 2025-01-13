@@ -41,7 +41,7 @@ public class MoveAndGrabCone extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         new SetWinchState(m_elevatorSubsystem, WinchStates.kTop),
-        new SetGrabberState(m_grabberSubsystem, GrabberStates.kMiddle)),
+        new SetGrabberState(m_grabberSubsystem, GrabberStates.kTop)),
 
       new ParallelDeadlineGroup(
         new IntakeCone(m_grabberSubsystem, intakeSpeed2),

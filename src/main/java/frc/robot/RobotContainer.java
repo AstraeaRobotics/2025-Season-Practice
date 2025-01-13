@@ -64,7 +64,6 @@ public class RobotContainer {
     kCircle.onTrue(new SetWinchState(elevatorSub, WinchStates.kMiddle));
     kSquare.onTrue(new SetWinchState(elevatorSub, WinchStates.kTop));
     kCross.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kBottom));
-    kl2.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kMiddle));
     kr2.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kTop));
     kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.1));
     kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.1));

@@ -36,7 +36,7 @@ public class TeleopDrive extends Command {
     double leftMotorSpeed = forwardSpeed + turnSpeed;
     double rightMotorSpeed = forwardSpeed - turnSpeed;
 
-    if(Math.abs(leftMotorSpeed) >= 0.01 || Math.abs(rightMotorSpeed) >= 0.01) {
+    if(Math.abs(leftMotorSpeed) >= 0.1 || Math.abs(rightMotorSpeed) >= 0.1) {
       driveBase.moveMotors(leftMotorSpeed, rightMotorSpeed);
     }
   }
