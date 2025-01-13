@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
 import frc.robot.commands.Autos.AutoDrop;
+import frc.robot.commands.Grabber.ManualGrabber;
 import frc.robot.commands.Grabber.SetGrabberState;
 import frc.robot.commands.Tankdrive.JoystickDrive;
+import frc.robot.commands.Winch.ManualWinch;
 import frc.robot.commands.Winch.SetWinchState;
 import frc.robot.subsystems.GrabberSubsystem;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -55,10 +57,15 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-    kCircle.onTrue(new SetWinchState(m_winch, GrabberWinchStates.kLowered));
-    kTriangle.onTrue(new SetWinchState(m_winch, GrabberWinchStates.kGround));
-    kCross.onTrue(new SetGrabberState(m_grabber, GrabberWinchStates.kLowered));
-    kSquare.onTrue(new SetGrabberState(m_grabber, GrabberWinchStates.kRaised));
+    // kCircle.onTrue(new SetWinchState(m_winch, GrabberWinchStates.kLowered));
+    // kTriangle.onTrue(new SetWinchState(m_winch, GrabberWinchStates.kGround));
+    // kCross.onTrue(new SetGrabberState(m_grabber, GrabberWinchStates.kLowered));
+    // kSquare.onTrue(new SetGrabberState(m_grabber, GrabberWinchStates.kRaised));
+
+    kCircle.onTrue(new ManualWinch(m_winch, 0.1));
+    kTriangle.onTrue(new ManualWinch(m_winch, -0.1));
+    kCross.onTrue(new ManualGrabber(m_grabber, 0.1));
+    kSquare.onTrue(new ManualGrabber(m_grabber, -0.1));
 
   }
 
