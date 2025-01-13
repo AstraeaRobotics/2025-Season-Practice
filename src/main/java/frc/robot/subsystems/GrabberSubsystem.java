@@ -48,7 +48,6 @@ public class GrabberSubsystem extends SubsystemBase {
  public void setState(GrabberStates newState){
     m_state = newState;
     setpoint = m_state.getGrabberSetpoint();
-    m_grabberPidController.setSetpoint(setpoint);  
   }
 
   public GrabberStates getGrabberState() {

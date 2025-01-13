@@ -2,22 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Grabber;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
 
-public class MoveWinch extends Command {
-  /** Creates a new MoveWinch. */
-  ElevatorSubsystem m_elevatorSubsystem;
+public class PivotGrabber extends Command {
+  /** Creates a new PivotGrabber. */
+  GrabberSubsystem m_grabberSubsystem;
   double speed;
 
-  public MoveWinch(ElevatorSubsystem m_elevatorSubsystem, double speed) {
-    this.m_elevatorSubsystem = m_elevatorSubsystem;
+  public PivotGrabber(GrabberSubsystem m_grabberSubsystem, double speed) {
+    this.m_grabberSubsystem = m_grabberSubsystem;
     this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-
-    addRequirements(m_elevatorSubsystem);
+    addRequirements(m_grabberSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -27,13 +26,13 @@ public class MoveWinch extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevatorSubsystem.setMotor(speed);
+    m_grabberSubsystem.setPivotMotor(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_elevatorSubsystem.setMotor(0);
+    m_grabberSubsystem.setPivotMotor(0);
   }
 
   // Returns true when the command should end.
