@@ -63,11 +63,11 @@ public class TankDriveBase extends SubsystemBase {
     rightBackMotor.set(rightSpeed);
   } 
 
-  public double getLeftEncoder1Position() {
+  public double getLeftEncoderPosition() {
     return leftEncoder.getPosition();
   }
 
-  public double getRightEncoder1Position() {
+  public double getRightEncoderPosition() {
     return rightEncoder.getPosition();
   }
 

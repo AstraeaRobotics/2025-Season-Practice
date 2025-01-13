@@ -11,11 +11,13 @@ import frc.robot.subsystems.TankDriveBase;
 
 public class TeleopDrive extends Command {
   TankDriveBase driveBase;
-  DoubleSupplier yspeed;
+  DoubleSupplier xSpeed;
+  DoubleSupplier ySpeed;
   /** Creates a new TankDrive. */
-  public TeleopDrive(TankDriveBase driveBase, DoubleSupplier yspeed) {
-    this.yspeed = yspeed;
+  public TeleopDrive(TankDriveBase driveBase, DoubleSupplier xSpeed, DoubleSupplier ySpeed) {
     this.driveBase = driveBase;
+    this.xSpeed = xSpeed;
+    this.ySpeed = ySpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveBase);
@@ -28,8 +30,14 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(yspeed.getAsDouble())>=.01){
-      driveBase.setMotors(yspeed.getAsDouble());
+    double forwardSpeed = xSpeed.getAsDouble();
+    double turnSpeed = ySpeed.getAsDouble();
+
+    double leftMotorSpeed = forwardSpeed + turnSpeed;
+    double rightMotorSpeed = forwardSpeed - turnSpeed;
+
+    if(Math.abs(leftMotorSpeed) >= 0.01 || Math.abs(rightMotorSpeed) >= 0.01) {
+      driveBase.moveMotors(leftMotorSpeed, rightMotorSpeed);
     }
   }
 

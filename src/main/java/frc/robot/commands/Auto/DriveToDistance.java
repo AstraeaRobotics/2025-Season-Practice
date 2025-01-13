@@ -19,13 +19,12 @@ public class DriveToDistance extends Command {
   /** Creates a new DriveToDistance. */
   public DriveToDistance(TankDriveBase driveBase, double targetDistance, double speed) {
     this.driveBase = driveBase;
-    currentDistance = driveBase.getLeftEncoder1Position();
+    currentDistance = driveBase.getLeftEncoderPosition();
     this.targetDistance += currentDistance;
     this.speed = speed;
     
     drivePID = new PIDController(0.01, 0, 0);
-    drivePID.setSetpoint(this.targetDistance);
-    
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveBase);
   }
@@ -39,9 +38,18 @@ public class DriveToDistance extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double driveSpeed = drivePID.calculate(currentDistance);
-    driveBase.setMotors(driveSpeed);
+    currentDistance = driveBase.getLeftEncoderPosition();
+    
+    double error = targetDistance - currentDistance;
+    double driveSpeed = drivePID.calculate(error);
+    
+    if (Math.abs(error) < 0.05) {
+      driveBase.setMotors(0);
+    } else {
+      driveBase.setMotors(driveSpeed);
+    }
   }
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -52,7 +60,7 @@ public class DriveToDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    currentDistance = driveBase.getLeftEncoder1Position();
+    currentDistance = driveBase.getLeftEncoderPosition();
     return((targetDistance - 0.05 <= currentDistance) && ( targetDistance + 0.05 >= currentDistance));
   }
 }

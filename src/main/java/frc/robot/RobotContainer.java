@@ -44,7 +44,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_TankDriveBase.setDefaultCommand(new TeleopDrive(m_TankDriveBase, m_Controller::getLeftY));
+    m_TankDriveBase.setDefaultCommand(new TeleopDrive(m_TankDriveBase, m_Controller::getLeftY, m_Controller::getRightY));
     // Configure the trigger bindings
     configureBindings();
   }
