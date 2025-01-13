@@ -66,14 +66,12 @@ public class RobotContainer {
   
     //kCircle.onTrue(new DriveToDistance(m_TankDriveSubsystem, 0.1, 0.1));
     kTriangle.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kLow));
-    //kCross.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kMid));
+    kCross.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kMid));
     kSquare.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kHigh));
-
-
-    kCross.onTrue(new SetWinchState(m_winchsubsystem, WinchStates.kBottom));
-    kCircle.onTrue(new SetWinchState(m_winchsubsystem, WinchStates.kMiddle));
-    kR1.onTrue(new SetWinchState(m_winchsubsystem, WinchStates.kTop));
-    kR2.onTrue(new TheAssignment(m_grabbersubsystem, m_winchsubsystem,  m_TankDriveSubsystem, 0.1, 0.1, 0.1));
+    kCircle.onTrue(new SetWinchState(m_winchsubsystem, WinchStates.kBottom));
+    kR1.onTrue(new SetWinchState(m_winchsubsystem, WinchStates.kMiddle));
+    kR2.onTrue(new SetWinchState(m_winchsubsystem, WinchStates.kTop));
+    kR3.onTrue(new TheAssignment(m_grabbersubsystem, m_winchsubsystem,  m_TankDriveSubsystem, 0.1, 0.1, 0.1));
     
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
