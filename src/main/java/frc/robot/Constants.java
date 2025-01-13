@@ -41,6 +41,11 @@ public final class Constants {
   }
 
   public static class GrabberConstants {
+    public static final double kEncoderConversionFactor = 2 * Math.PI;
+    public static final double kP = 0.002;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+
     public enum GrabberStates {
       kLow(0),
       kMid(10),

@@ -23,10 +23,10 @@ public class TankDriveSubsystem extends SubsystemBase {
   /** Creates a new TankDriveSubsystem. */
   public TankDriveSubsystem() {
 
-    leftMotor1 = new CANSparkMax(0, MotorType.kBrushless);
-    leftMotor2 = new CANSparkMax(1, MotorType.kBrushless);
-    rightMotor1 = new CANSparkMax(2, MotorType.kBrushless);
-    rightMotor2 = new CANSparkMax(3, MotorType.kBrushless);
+    leftMotor1 = new CANSparkMax(7, MotorType.kBrushless);
+    leftMotor2 = new CANSparkMax(8, MotorType.kBrushless);
+    rightMotor1 = new CANSparkMax(4, MotorType.kBrushless);
+    rightMotor2 = new CANSparkMax(6, MotorType.kBrushless);
 
     leftEncoder1 = leftMotor1.getEncoder();
     leftEncoder1.setPosition(0);
