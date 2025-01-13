@@ -28,13 +28,13 @@ public final class Constants {
 
   public static class GrabberConstants {
     public static final double kEncoderConversionFactor = 2 * Math.PI;
-    public static final double kP = 0.01;
+    public static final double kP = .8;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
     public enum GrabberStates{
-      kBottom(0.23), // placeholder values - will need to be tested for 
-      kTop(0.757);
+      kBottom(0.3), // placeholder values - will need to be tested for 
+      kTop(0.65);
       private double grabberSetpoint;
 
       private GrabberStates(double grabberSetpoint){
@@ -51,12 +51,12 @@ public final class Constants {
 
   public static class WinchConstants {
     public static final double kEncoderConversionFactor = 2 * Math.PI;
-    public static final double kP = 0.002;
+    public static final double kP = 0.005;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
     public enum WinchStates{
-      kBottom(-250),
+      kBottom(-225), // was 250
       kMiddle(-139),
       kTop(0);
 

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.Auto.MoveAndGrabCone;
 import frc.robot.commands.Grabber.PivotGrabber;
 import frc.robot.commands.Grabber.SetGrabberState;
 import frc.robot.commands.Winch.SetWinchState;
@@ -44,7 +45,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_TankDriveBase.setDefaultCommand(new TeleopDrive(m_TankDriveBase, m_Controller::getLeftY, m_Controller::getRightY));
+   // m_TankDriveBase.setDefaultCommand(new TeleopDrive(m_TankDriveBase, m_Controller::getLeftY, m_Controller::getRightY));
     // Configure the trigger bindings
     configureBindings();
   }
@@ -65,8 +66,9 @@ public class RobotContainer {
     kSquare.onTrue(new SetWinchState(elevatorSub, WinchStates.kTop));
     kCross.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kBottom));
     kr2.onTrue(new SetGrabberState(m_GrabberSubsystem, GrabberStates.kTop));
-    kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.1));
-    kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.1));
+    kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.2));
+    kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.2));
+    kl2.onTrue(new MoveAndGrabCone(m_GrabberSubsystem,elevatorSub,0.3, -0.3));
 
   }
 

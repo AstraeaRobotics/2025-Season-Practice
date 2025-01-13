@@ -22,29 +22,30 @@ import frc.robot.subsystems.TankDriveBase;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class MoveAndGrabCone extends SequentialCommandGroup {
   /** Creates a new MoveAndGrabCone. */
-  public MoveAndGrabCone(TankDriveBase m_TankDriveBase,GrabberSubsystem m_grabberSubsystem, ElevatorSubsystem m_elevatorSubsystem, double distance1, double driveSpeed1,double intakeSpeed1, double distance2, double driveSpeed2,double intakeSpeed2) {
+  public MoveAndGrabCone(GrabberSubsystem m_grabberSubsystem, ElevatorSubsystem m_elevatorSubsystem,double intakeSpeed1, double intakeSpeed2) {
    
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveToDistance(m_TankDriveBase, distance1, driveSpeed1),
+ 
 
       new ParallelCommandGroup(
         new SetWinchState(m_elevatorSubsystem, WinchStates.kBottom),
         new SetGrabberState(m_grabberSubsystem, GrabberStates.kBottom)),
 
       new ParallelDeadlineGroup(
-        new IntakeCone(m_grabberSubsystem, intakeSpeed1),
-        new WaitCommand(2)),
+        new WaitCommand(4),
+        new IntakeCone(m_grabberSubsystem, intakeSpeed1)
+        ),
 
-      new DriveToDistance(m_TankDriveBase, distance2, driveSpeed2),
 
       new ParallelCommandGroup(
         new SetWinchState(m_elevatorSubsystem, WinchStates.kTop),
         new SetGrabberState(m_grabberSubsystem, GrabberStates.kTop)),
 
       new ParallelDeadlineGroup(
-        new IntakeCone(m_grabberSubsystem, intakeSpeed2),
-        new WaitCommand(2)));
+        new WaitCommand(2),
+        new IntakeCone(m_grabberSubsystem, intakeSpeed2)
+        ));
   }
 }

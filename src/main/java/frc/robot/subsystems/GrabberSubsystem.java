@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -31,7 +32,8 @@ public class GrabberSubsystem extends SubsystemBase {
     pivotEncoder = pivotMotor.getAbsoluteEncoder();
     intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
     intakeEncoder = intakeMotor.getEncoder();
-    m_state = GrabberStates.kBottom;
+    m_state = GrabberStates.kTop;
+    setpoint = m_state.getGrabberSetpoint();
     m_grabberPidController = new PIDController(GrabberConstants.kP, GrabberConstants.kI, GrabberConstants.kD);
     
     configureMotors();
@@ -59,7 +61,7 @@ public class GrabberSubsystem extends SubsystemBase {
   }
 
   public void setMotorPID() {
-    pivotMotor.set(getMotorPID());
+    pivotMotor.set(MathUtil.clamp(getMotorPID(),-0.8,0.8));
   }
 
   
@@ -81,7 +83,7 @@ public class GrabberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Grabber Pivot Encoder", getPivotEncoder());
     SmartDashboard.putNumber("Intake Encoder", getIntakeEncoder());
     SmartDashboard.putNumber("PID Output", getMotorPID()); 
-      setMotorPID();
+    setMotorPID();
      
   }
 }
