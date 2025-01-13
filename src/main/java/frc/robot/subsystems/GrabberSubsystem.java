@@ -4,7 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +18,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
     private final CANSparkMax pivotMotor;
     private final CANSparkMax intakeMotor;
-    private final RelativeEncoder pivotEncoder;
+    private final AbsoluteEncoder pivotEncoder;
     private final RelativeEncoder intakeEncoder;
     private final PIDController pid;
     private double currentState;
@@ -24,12 +26,12 @@ public class GrabberSubsystem extends SubsystemBase {
     private double desiredSetPoint;
 
     /** Creates a new GrabberSubsystem instance. */
-    public GrabberSubsystem(PivotStates state) {
+    public GrabberSubsystem() {
         // Initializing motors and encoders for both pivot and intake systems
         pivotMotor = new CANSparkMax(1, CANSparkMax.MotorType.kBrushless);
         intakeMotor = new CANSparkMax(2, CANSparkMax.MotorType.kBrushless);
         
-        pivotEncoder = pivotMotor.getEncoder();
+        pivotEncoder = pivotMotor.getAbsoluteEncoder();
         intakeEncoder = intakeMotor.getEncoder();
         desiredSetPoint = state.getPivotSetPoint();
         // Initialize PID controller for precise control of pivot motor

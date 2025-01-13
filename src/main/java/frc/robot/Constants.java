@@ -25,9 +25,8 @@ public final class Constants {
     public enum PivotStates{
 
 
-      kGround(0),
-      kHalf(50),
-      kFull(100);
+      kGround(0.23),
+      kFull(0.057);
       private double pivotSetPoint;
       private PivotStates(double pivotSetPoint){
       this.pivotSetPoint = pivotSetPoint;

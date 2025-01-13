@@ -5,10 +5,13 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.GrabberConstants.PivotStates;
+import frc.robot.Constants.WinchConstants.WinchStates;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.PS4Controller;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -24,8 +27,19 @@ public class RobotContainer {
   private final TankDriveSub driveSubsystem = new TankDriveSub();
     private final PS4Controller driverController = new PS4Controller(1);
     private final Joystick driverJoystick = new Joystick(1);
+    private final WinchSubsystem winchSub = new WinchSubsystem();
+    private final GrabberSubsystem grabberSub = new GrabberSubsystem();
 
-
+    private final PS4Controller m_Controller = new PS4Controller(0);
+    private final JoystickButton kTriangle = new JoystickButton(m_Controller, PS4Controller.Button.kTriangle.value);
+    private final JoystickButton kCircle = new JoystickButton(m_Controller, PS4Controller.Button.kCircle.value);
+    private final JoystickButton kSquare = new JoystickButton(m_Controller, PS4Controller.Button.kSquare.value);
+    private final JoystickButton kCross = new JoystickButton(m_Controller, PS4Controller.Button.kCross.value);
+    private final JoystickButton kr1 = new JoystickButton(m_Controller, PS4Controller.Button.kR1.value);
+    private final JoystickButton kl1= new JoystickButton(m_Controller, PS4Controller.Button.kL1.value);
+    private final JoystickButton kr2 = new JoystickButton(m_Controller, PS4Controller.Button.kR2.value);
+    private final JoystickButton kl2 = new JoystickButton(m_Controller, PS4Controller.Button.kL1.value);
+    
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -60,7 +74,15 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    kTriangle.onTrue(new SetWinchState(winchSub, WinchStates.kGround));
+    kCircle.onTrue(new SetWinchState(winchSub, WinchStates.kHalf));
+    kCross.onTrue(new SetWinchState(winchSub, WinchStates.kFull));
+    kr2.onTrue(new SetGrabberPivotState(grabberSub , PivotStates.kGround));
+    kl2.onTrue(new SetGrabberPivotState(grabberSub, PivotStates.kFull));
+    
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
