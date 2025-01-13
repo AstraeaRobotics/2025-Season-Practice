@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
 import frc.robot.commands.Autos.AutoDrop;
+import frc.robot.commands.Autos.ConeAuto;
 import frc.robot.commands.Grabber.ManualGrabber;
 import frc.robot.commands.Grabber.SetGrabberState;
 import frc.robot.commands.Tankdrive.JoystickDrive;
@@ -33,7 +34,7 @@ public class RobotContainer {
   private final WinchSubsystem m_winch = new WinchSubsystem();
   private final PS4Controller m_controller = new PS4Controller(Constants.OperatorConstants.kDriverControllerPort);
 
-  private final TankDrivebase m_driveSubsystem = new TankDrivebase();
+  private final TankDrivebase m_drivebase = new TankDrivebase();
   JoystickButton kCircle = new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
   JoystickButton kTriangle = new JoystickButton(m_controller, PS4Controller.Button.kTriangle.value);
   JoystickButton kCross = new JoystickButton(m_controller, PS4Controller.Button.kCross.value);
@@ -43,7 +44,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    m_driveSubsystem.setDefaultCommand(new JoystickDrive(m_driveSubsystem, m_controller::getLeftY, m_controller::getLeftX));
+    m_drivebase.setDefaultCommand(new JoystickDrive(m_drivebase, m_controller::getLeftY, m_controller::getLeftX));
   }
 
   /**
@@ -75,6 +76,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new AutoDrop(m_grabber, m_winch);
+    return new ConeAuto(m_grabber, m_winch, m_drivebase);
   }
 }
