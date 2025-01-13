@@ -34,32 +34,18 @@ public final class Constants {
       }
     }
   }
-  public class PivotConstants {
-    public enum PivotStates {
-      kground1(0),
-      kMid1(5),
-      kHigh1(9.5);
-    private double pivotSetPoint;
-    private PivotStates(double pivotSetPoint){
-      this.pivotSetPoint=pivotSetPoint;
-    } public double getPivotSetPoint(){
-        return pivotSetPoint;
-  
+  public static class GrabberConstants {
+    public enum GrabberStates {
+      kLow(0),
+      kMid(10),
+      kHigh(20);
+      private double grabberSetPoint;
+      private GrabberStates(double grabberSetPoint){
+        this.grabberSetPoint=grabberSetPoint;
       }
-    
-    
-    }
-    
-    public enum PivotSpeeds{
-      kSlow(0.001),
-      kMedium(0.01),
-      kFast(0.1);
-      private double pivotSpeed;
-      private PivotSpeeds(double pivotSpeed){
-        this.pivotSpeed=pivotSpeed;
-      }
-      public double getPivotSpeed(){
-        return pivotSpeed;
+      public double getGrabberSetPoint() {
+        return grabberSetPoint;
       }
     }
-  }}
+  }
+  }

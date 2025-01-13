@@ -4,23 +4,19 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.PivotConstants.PivotSpeeds;
-import frc.robot.Constants.PivotConstants.PivotStates;
-import frc.robot.commands.Autos;
-import frc.robot.commands.DriveToDistance;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.pivot.MoveToPivotState;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.PivotSubsystemNew;
+import frc.robot.commands.Auto.DriveToDistance;
 import frc.robot.subsystems.TankDriveSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.pivot.SetPivotState;
+import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.WinchSubsystem;
+import frc.robot.commands.Grabber.*;
+import frc.robot.Constants.GrabberConstants.*;
+import frc.robot.commands.JoystickDrive;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,17 +27,25 @@ import frc.robot.commands.pivot.SetPivotState;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final PS4Controller m_controller = new PS4Controller(0);
+
+  private final GrabberSubsystem m_grabbersubsystem = new GrabberSubsystem();
+  private final TankDriveSubsystem m_TankDriveSubsystem = new TankDriveSubsystem();
+  private final WinchSubsystem m_winchsubsystem = new WinchSubsystem();
   
   JoystickButton kTriangle=new JoystickButton(m_controller, PS4Controller.Button.kTriangle.value);
   JoystickButton kCross=new JoystickButton(m_controller, PS4Controller.Button.kCross.value);
   JoystickButton kSquare=new JoystickButton(m_controller, PS4Controller.Button.kSquare.value);
   JoystickButton kCircle=new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
-  PivotSubsystemNew pivotSub1;
-  TankDriveSubsystem tankSub;
+  JoystickButton kL1 = new JoystickButton(m_controller, PS4Controller.Button.kL1.value);
+  JoystickButton kL2 = new JoystickButton(m_controller, PS4Controller.Button.kL2.value);
+  JoystickButton kL3 = new JoystickButton(m_controller, PS4Controller.Button.kL3.value);
+  JoystickButton kR1 = new JoystickButton(m_controller, PS4Controller.Button.kR1.value);
+  JoystickButton kR2 = new JoystickButton(m_controller, PS4Controller.Button.kR2.value);
+  
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
-      
- pivotSub1.setDefaultCommand(new MoveToPivotState(pivotSub1, PivotSpeeds.kMedium));
+      m_TankDriveSubsystem.setDefaultCommand(new JoystickDrive(m_TankDriveSubsystem, m_controller::getLeftY));
+  
     // Configure the trigger bindings
     configureBindings();}
   
@@ -60,10 +64,17 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    kTriangle.onTrue(new SetPivotState(pivotSub1, PivotStates.kground1));
-    kSquare.onTrue(new SetPivotState(pivotSub1, PivotStates.kMid1));
-    kCross.onTrue(new SetPivotState(pivotSub1, PivotStates.kHigh1));
-    kCircle.onTrue(new DriveToDistance(tankSub, 0.1, 0.1));
+  
+    kCircle.onTrue(new DriveToDistance(m_TankDriveSubsystem, 0.1, 0.1));
+    kTriangle.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kLow));
+    kCross.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kMid));
+    kSquare.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kHigh));
+
+    kL1.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kLow, 0.1));
+    kL2.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kMid, 0.1));
+    kL3.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kHigh, 0.1));
+    
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     

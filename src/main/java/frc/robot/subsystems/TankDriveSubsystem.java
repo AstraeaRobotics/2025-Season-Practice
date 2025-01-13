@@ -8,8 +8,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 public class TankDriveSubsystem extends SubsystemBase {
   CANSparkMax leftMotor1;
   CANSparkMax leftMotor2;
@@ -41,6 +39,12 @@ public class TankDriveSubsystem extends SubsystemBase {
   public void setRightMotors(double speed){
     rightMotor1.set(speed);
     rightMotor2.set(speed);
+  }
+  public void setMotors(double speed){
+    rightMotor1.set(speed);
+    rightMotor2.set(speed);
+    leftMotor1.set(speed);
+    leftMotor2.set(speed);
   }
   public double getDistance(){
     return leftEncoder1.getPosition();
