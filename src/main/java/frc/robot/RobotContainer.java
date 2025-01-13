@@ -9,6 +9,7 @@ import frc.robot.commands.Autos.AutoDrop;
 import frc.robot.commands.Autos.ConeAuto;
 import frc.robot.commands.Grabber.ManualGrabber;
 import frc.robot.commands.Grabber.SetGrabberState;
+import frc.robot.commands.Tankdrive.DriveToDistance;
 import frc.robot.commands.Tankdrive.JoystickDrive;
 import frc.robot.commands.Winch.ManualWinch;
 import frc.robot.commands.Winch.SetWinchState;
@@ -65,7 +66,9 @@ public class RobotContainer {
 
     kCircle.onTrue(new ManualWinch(m_winch, 0.1));
     kTriangle.onTrue(new ManualWinch(m_winch, -0.1));
-    // kCross.onTrue(new ManualGrabber(m_grabber, 0.1));
+    kCross.onTrue(new DriveToDistance(m_drivebase, 0.25, 0.1, false));
+
+    //kCross.onTrue(new ManualGrabber(m_grabber, 0.1));
     // kSquare.onTrue(new ManualGrabber(m_grabber, -0.1));
 
   }
