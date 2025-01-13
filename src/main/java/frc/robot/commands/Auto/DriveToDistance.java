@@ -38,17 +38,9 @@ public class DriveToDistance extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentDistance = driveBase.getLeftEncoderPosition();
-    
-    double error = targetDistance - currentDistance;
-    double driveSpeed = drivePID.calculate(error);
-    
-    if (Math.abs(error) < 0.05) {
-      driveBase.setMotors(0);
-    } else {
-      driveBase.setMotors(driveSpeed);
+      driveBase.curveDrive(speed,0,false);
     }
-  }
+  
   
 
   // Called once the command ends or is interrupted.
@@ -63,4 +55,5 @@ public class DriveToDistance extends Command {
     currentDistance = driveBase.getLeftEncoderPosition();
     return((targetDistance - 0.05 <= currentDistance) && ( targetDistance + 0.05 >= currentDistance));
   }
+
 }
