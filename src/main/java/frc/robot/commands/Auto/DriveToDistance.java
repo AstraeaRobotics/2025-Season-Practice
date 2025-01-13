@@ -47,7 +47,7 @@ public class DriveToDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_TankDrive.getDistance() - m_currentDistance >= m_desiredDistance);
+    return (Math.abs(m_TankDrive.getDistance() - m_currentDistance) >= Math.abs(m_desiredDistance));
   }
 }
 

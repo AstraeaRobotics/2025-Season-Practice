@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.TankDriveBaseConstants;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -15,30 +17,21 @@ public class TankDriveSubsystem extends SubsystemBase {
   CANSparkMax rightMotor1;
   CANSparkMax rightMotor2;
 
-  RelativeEncoder leftEncoder1;
-  RelativeEncoder leftEncoder2;
-  RelativeEncoder rightEncoder1;
-  RelativeEncoder rightEncoder2;
+  RelativeEncoder leftEncoder;
+  RelativeEncoder rightEncoder;
 
   /** Creates a new TankDriveSubsystem. */
   public TankDriveSubsystem() {
 
-    leftMotor1 = new CANSparkMax(7, MotorType.kBrushless);
-    leftMotor2 = new CANSparkMax(8, MotorType.kBrushless);
-    rightMotor1 = new CANSparkMax(4, MotorType.kBrushless);
-    rightMotor2 = new CANSparkMax(6, MotorType.kBrushless);
+    leftMotor1 = new CANSparkMax(1, MotorType.kBrushless);
+    leftMotor2 = new CANSparkMax(2, MotorType.kBrushless);
+    rightMotor1 = new CANSparkMax(3, MotorType.kBrushless);
+    rightMotor2 = new CANSparkMax(4, MotorType.kBrushless);
 
-    leftEncoder1 = leftMotor1.getEncoder();
-    leftEncoder1.setPosition(0);
-
-    leftEncoder2 = leftMotor2.getEncoder();
-    leftEncoder2.setPosition(0);
-
-    rightEncoder1 = rightMotor1.getEncoder();
-    rightEncoder1.setPosition(0);
-
-    rightEncoder2 = rightMotor2.getEncoder();
-    rightEncoder2.setPosition(0);
+    leftEncoder = leftMotor1.getEncoder();
+    rightEncoder = rightMotor1.getEncoder();
+    
+    configureMotors();
 
   }
 
@@ -60,7 +53,22 @@ public class TankDriveSubsystem extends SubsystemBase {
   }
 
   public double getDistance(){
-    return leftEncoder1.getPosition();
+    return leftEncoder.getPosition();
+  }
+
+  private void configureMotors() {
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+    
+    leftEncoder.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
+    rightEncoder.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
+
+    leftMotor1.set(0);
+    leftMotor2.set(0);
+    rightMotor1.set(0);
+    rightMotor2.set(0);
+
+    
   }
   
   @Override

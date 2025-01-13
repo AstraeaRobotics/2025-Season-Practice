@@ -7,7 +7,6 @@ import frc.robot.Constants.GrabberConstants;
 import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.Auto.MoveIntake;
-import frc.robot.commands.Grabber.PivotGrabber;
 import frc.robot.commands.Grabber.SetGrabberState;
 import frc.robot.commands.Winch.SetWinchState;
 import frc.robot.commands.Auto.DriveToDistance;
@@ -31,7 +30,6 @@ public class TheAssignment extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new DriveToDistance(driveSub, driveSpeed, distance),
         new SetGrabberState(grabberSub, GrabberStates.kMid),
-        new PivotGrabber(grabberSub, 0.1),
         new SetWinchState(winchSub, WinchStates.kBottom)
       ),
 
@@ -42,7 +40,6 @@ public class TheAssignment extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         new SetGrabberState(grabberSub, GrabberStates.kHigh),
-        new PivotGrabber(grabberSub, 0.1),
         new SetWinchState(winchSub, WinchStates.kTop),
         new DriveToDistance(driveSub, -driveSpeed, distance)
       ),
