@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
+import frc.robot.Constants.GrabberConstants.PivotStates;
 
 public class GrabberSubsystem extends SubsystemBase {
 
@@ -17,75 +18,57 @@ public class GrabberSubsystem extends SubsystemBase {
     private final CANSparkMax intakeMotor;
     private final RelativeEncoder pivotEncoder;
     private final RelativeEncoder intakeEncoder;
-    private final PIDController pivotPidController;
-
-    private GrabberConstants.GrabberStates currentState;
-    private double targetPosition;
+    private final PIDController pid;
+    private double currentState;
+    private PivotStates state;
+    private double desiredSetPoint;
 
     /** Creates a new GrabberSubsystem instance. */
-    public GrabberSubsystem() {
+    public GrabberSubsystem(PivotStates state) {
         // Initializing motors and encoders for both pivot and intake systems
         pivotMotor = new CANSparkMax(1, CANSparkMax.MotorType.kBrushless);
         intakeMotor = new CANSparkMax(2, CANSparkMax.MotorType.kBrushless);
         
         pivotEncoder = pivotMotor.getEncoder();
         intakeEncoder = intakeMotor.getEncoder();
-
+        desiredSetPoint = state.getPivotSetPoint();
         // Initialize PID controller for precise control of pivot motor
-        pivotPidController = new PIDController(0.001, 0.0, 0.0);  // Adjust with correct PID constants
+        pid = new PIDController(0.001, 0.0, 0.0);  // Adjust with correct PID constants
         
-        // Set initial grabber state
-        currentState = GrabberConstants.GrabberStates.kGround;
-        targetPosition = currentState.getGrabberSetpoint();
-
-        // Reset encoder positions for accurate feedback
-        resetEncoders();
+        
     }
 
     // Method to control the pivot motor speed
-    public void controlPivotMotor(double speed) {
+    public void setPivotMotor(double speed){
         pivotMotor.set(speed);
-    }
-
-    // Method to control the intake motor speed
-    public void controlIntakeMotor(double speed) {
+      }
+    public void setIntakeMotor(double speed){
         intakeMotor.set(speed);
     }
 
-    // Update grabber's state and adjust setpoint based on new state
-    public void updateState(GrabberConstants.GrabberStates newState) {
-        currentState = newState;
-        targetPosition = currentState.getGrabberSetpoint();
-    }
+      public double getPivotPosition(){
+        return pivotEncoder.getPosition();
+      }
+    
+      public double getPivotVelocity(){
+        return pivotEncoder.getVelocity();  
+      }
+    
+      public double getDesiredSetPoint(){
+        return desiredSetPoint;
+      }
+      
+      public void setState(PivotStates tempState){
+        state = tempState;
+        desiredSetPoint = state.getPivotSetPoint();
+      }
+      public double getCurrentPIDOutput(){
+        return pid.calculate(pivotEncoder.getPosition(), desiredSetPoint);
+      }
 
-    // Get current grabber state
-    public GrabberConstants.GrabberStates getCurrentState() {
-        return currentState;
-    }
-
-    // Calculate PID output to control pivot motor based on encoder feedback
-    private double calculatePivotPID() {
-        return pivotPidController.calculate(pivotEncoder.getPosition(), targetPosition);
-    }
-
-    // Apply the PID output to the pivot motor
-    private void applyPIDControl() {
-        pivotMotor.set(calculatePivotPID());
-    }
-
-    // Reset encoders to 0 for accurate position tracking
-    private void resetEncoders() {
-        pivotEncoder.setPosition(0);
-        intakeEncoder.setPosition(0);
-    }
-
-    @Override
-    public void periodic() {
-        // Display encoder positions on SmartDashboard for real-time feedback
-        SmartDashboard.putNumber("Pivot Encoder Position", pivotEncoder.getPosition());
-        SmartDashboard.putNumber("Intake Encoder Position", intakeEncoder.getPosition());
-        
-        // Apply PID control to the pivot motor
-        applyPIDControl();
-    }
+     @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    pivotMotor.set(getCurrentPIDOutput());
+  }
 }

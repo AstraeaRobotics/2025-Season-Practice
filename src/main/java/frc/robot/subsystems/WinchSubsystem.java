@@ -10,7 +10,8 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants.GrabberWinchConstants.GrabberWinchStates;
+import frc.robot.Constants.WinchConstants;
+import frc.robot.Constants.WinchConstants.WinchStates;
 
 public class WinchSubsystem extends SubsystemBase {
 
@@ -18,26 +19,24 @@ public class WinchSubsystem extends SubsystemBase {
   private final RelativeEncoder encoder;
   private final PIDController pidController;
 
-  private GrabberWinchStates currentState;
+  private WinchStates currentState;
   private double setpoint;
 
   public WinchSubsystem() {
     // Initialize motor and encoder
-    motor = new CANSparkMax(Constants.GrabberWinchConstants.kWinchPort, MotorType.kBrushless);
+    motor = new CANSparkMax(Constants.WinchConstants.kWinchPort, MotorType.kBrushless);
     encoder = motor.getEncoder();
 
     // Configure PID controller
-    pidController = new PIDController(Constants.GrabberWinchConstants.kWinchP, 0, 0);
+    pidController = new PIDController(Constants.WinchConstants.KP, Constants.WinchConstants.KI,Constants.WinchConstants.KD);
 
     // Set default state and target position
-    currentState = GrabberWinchStates.kGround;
-    setpoint = currentState.getWinchVal();
-
+    
     configureEncoder();
   }
 
   // Retrieve the current state
-  public GrabberWinchStates getCurrentState() {
+  public WinchStates getCurrentState() {
     return currentState;
   }
 
@@ -52,9 +51,9 @@ public class WinchSubsystem extends SubsystemBase {
   }
 
   // Update the current state and recalculate the setpoint
-  public void updateState(GrabberWinchStates newState) {
+  public void updateState(WinchStates newState) {
     currentState = newState;
-    setpoint = currentState.getWinchVal();
+    setpoint = currentState.getWinchSetPoint();
     pidController.setSetpoint(setpoint);
   }
 

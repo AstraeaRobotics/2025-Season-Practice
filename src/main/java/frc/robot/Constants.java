@@ -17,9 +17,31 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class GrabberConstants{
+    public static final double KI = 0;
+    public static final double KP = 0;
+    public static final double KD = 0;
 
+    public enum PivotStates{
+
+
+      kGround(0),
+      kHalf(50),
+      kFull(100);
+      private double pivotSetPoint;
+      private PivotStates(double pivotSetPoint){
+      this.pivotSetPoint = pivotSetPoint;
+      }
+      public double getPivotSetPoint() {
+        return pivotSetPoint;
+      }
+    }
+
+  }
   public static class WinchConstants {
-
+    public static final double KI = 0;
+    public static final double KP = 0;
+    public static final double KD = 0;
     // Winch motor and encoder constants
     public static final int kWinchPort = 0;
     public static final double kWinchP = 0.001;
@@ -27,24 +49,18 @@ public final class Constants {
     // Define states for winch
     public enum WinchStates {
 
-      kGround(0.0, 0.01),
-      kRaised(1.5, 0),
-      kLowered(1.0, 0);
+      kGround(0.0),
+      kHalf(1.0),
+      kFull(1.5);
 
-      private final double winchVal;
-      private final double grabberVal;
-
-      private WinchStates(double winchVal, double grabberVal) {
-        this.winchVal = winchVal;
-        this.grabberVal = grabberVal;
+      private final double winchSetPoint;
+      
+      private WinchStates(double winchSetPoint) {
+        this.winchSetPoint = winchSetPoint;
       }
 
-      public double getWinchVal() {
-        return winchVal;
-      }
-
-      public double getGrabberVal() {
-        return grabberVal;
+      public double getWinchSetPoint() {
+        return winchSetPoint;
       }
     }
 
