@@ -12,9 +12,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants.GrabberStates;
-import frc.robot.Constants.GrabberConstants;
-import frc.robot.Constants.WinchConstants;
-import frc.robot.Constants.WinchConstants.WinchStates;
 
 public class GrabberSubsystem extends SubsystemBase {
   CANSparkMax pivotMotor;

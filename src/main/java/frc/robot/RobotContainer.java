@@ -9,17 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.Grabber.PivotGrabber;
-import frc.robot.commands.Winch.MoveWinch;
-import frc.robot.commands.Winch.SetState;
+import frc.robot.commands.Winch.SetWinchState;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TankDriveBase;
 
@@ -31,7 +26,6 @@ import frc.robot.subsystems.TankDriveBase;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ElevatorSubsystem elevatorSub = new ElevatorSubsystem();
   private final TankDriveBase m_TankDriveBase = new TankDriveBase();
   private final GrabberSubsystem m_GrabberSubsystem = new GrabberSubsystem();
@@ -46,10 +40,6 @@ public class RobotContainer {
   private final JoystickButton kr2 = new JoystickButton(m_Controller,PS4Controller.Button.kR2.value);
   private final JoystickButton kl2 = new JoystickButton(m_Controller,PS4Controller.Button.kL2.value);
 
-  
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -68,18 +58,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    kTriangle.onTrue(new SetState(elevatorSub, WinchStates.kBottom));
-    kCircle.onTrue(new SetState(elevatorSub, WinchStates.kMiddle));
-    kSquare.onTrue(new SetState(elevatorSub, WinchStates.kTop));
-    kCross.onTrue(new SetState(m_GrabberSubsystem, GrabberStates.kBottom));
-    kl2.onTrue(new SetState(m_GrabberSubsystem, GrabberStates.kMiddle));
-    kr2.onTrue(new SetState(m_GrabberSubsystem, GrabberStates.kTop));
+    kTriangle.onTrue(new SetWinchState(elevatorSub, WinchStates.kBottom));
+    kCircle.onTrue(new SetWinchState(elevatorSub, WinchStates.kMiddle));
+    kSquare.onTrue(new SetWinchState(elevatorSub, WinchStates.kTop));
+    kCross.onTrue(new SetWinchState(m_GrabberSubsystem, GrabberStates.kBottom));
+    kl2.onTrue(new SetWinchState(m_GrabberSubsystem, GrabberStates.kMiddle));
+    kr2.onTrue(new SetWinchState(m_GrabberSubsystem, GrabberStates.kTop));
     kr1.whileTrue(new PivotGrabber(m_GrabberSubsystem, 0.1));
     kl1.whileTrue(new PivotGrabber(m_GrabberSubsystem, -0.1));
 

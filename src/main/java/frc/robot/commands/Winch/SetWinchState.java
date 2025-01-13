@@ -13,11 +13,11 @@ import frc.robot.subsystems.GrabberSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SetState extends InstantCommand {
+public class SetWinchState extends InstantCommand {
   ElevatorSubsystem elevatorSub;
   WinchStates state;
   
-  public SetState(ElevatorSubsystem elevatorSub2, WinchStates ktop) {
+  public SetWinchState(ElevatorSubsystem elevatorSub2, WinchStates ktop) {
     this.elevatorSub = elevatorSub2;
     this.state = ktop;
 
@@ -25,7 +25,7 @@ public class SetState extends InstantCommand {
     addRequirements(elevatorSub2);
   }
 
-  public SetState(GrabberSubsystem m_GrabberSubsystem, GrabberStates ktop) {
+  public SetWinchState(GrabberSubsystem m_GrabberSubsystem, GrabberStates ktop) {
     //TODO Auto-generated constructor stub
 }
 

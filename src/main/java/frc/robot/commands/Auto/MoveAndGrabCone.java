@@ -11,7 +11,7 @@ import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.Grabber.IntakeCone;
 import frc.robot.commands.Grabber.SetGrabberState;
-import frc.robot.commands.Winch.SetState;
+import frc.robot.commands.Winch.SetWinchState;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TankDriveBase;
@@ -28,13 +28,13 @@ public class MoveAndGrabCone extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         new DriveToDistance(m_TankDriveBase, distance1, driveSpeed1),
-        new SetState(m_elevatorSubsystem, WinchStates.kBottom)),
+        new SetWinchState(m_elevatorSubsystem, WinchStates.kBottom)),
       new ParallelDeadlineGroup(
         new IntakeCone(m_grabberSubsystem, intakeSpeed1),
         new SetGrabberState(m_grabberSubsystem, GrabberStates.kBottom)),
       new ParallelCommandGroup(
         new DriveToDistance(m_TankDriveBase, distance2, driveSpeed2),
-        new SetState(m_elevatorSubsystem, WinchStates.kTop)),
+        new SetWinchState(m_elevatorSubsystem, WinchStates.kTop)),
       new ParallelDeadlineGroup(
         new IntakeCone(m_grabberSubsystem, intakeSpeed2),
         new SetGrabberState(m_grabberSubsystem, GrabberStates.kMiddle)));
