@@ -40,7 +40,7 @@ public class RobotContainer {
     configureBindings();
 
     //To set default to drivebase
-    driveSubsystem.setDefaultCommand(new TankDriveCommand(driveSubsystem, driverController::getLeftY, driverController::getLeftX));
+    driveSubsystem.setDefaultCommand(new Drive(driveSubsystem, driverController::getLeftY, driverController::getLeftX));
   }
 
   /**

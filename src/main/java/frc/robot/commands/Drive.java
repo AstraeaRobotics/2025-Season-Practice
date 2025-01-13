@@ -11,13 +11,13 @@ import org.opencv.video.TrackerNano;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TankDriveSub;
 
-public class TankDriveCommand extends Command {
+public class Drive extends Command {
   /** Creates a new TankDrive. */
   private TankDriveSub m_tanksub;
   private DoubleSupplier m_speedSupplier;
   private DoubleSupplier m_turnSupplier;
 
-  public TankDriveCommand(TankDriveSub driveBase, DoubleSupplier frSpeed, DoubleSupplier turn) {
+  public Drive(TankDriveSub driveBase, DoubleSupplier frSpeed, DoubleSupplier turn) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_tanksub = driveBase;
     m_speedSupplier = frSpeed;

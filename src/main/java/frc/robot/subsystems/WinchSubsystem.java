@@ -18,9 +18,9 @@ public class WinchSubsystem extends SubsystemBase {
   private final CANSparkMax motor;
   private final RelativeEncoder encoder;
   private final PIDController pidController;
-
+  private double desiredSetPoint;
   private WinchStates currentState;
-  private double setpoint;
+  
 
   public WinchSubsystem() {
     // Initialize motor and encoder
@@ -32,52 +32,31 @@ public class WinchSubsystem extends SubsystemBase {
 
     // Set default state and target position
     
-    configureEncoder();
+   // configureEncoder();
   }
-
-  // Retrieve the current state
-  public WinchStates getCurrentState() {
-    return currentState;
-  }
-
-  // Retrieve the target setpoint
-  public double getSetpoint() {
-    return setpoint;
-  }
-
-  // Get the current position from the encoder
-  public double getCurrentPosition() {
-    return encoder.getPosition();
-  }
-
-  // Update the current state and recalculate the setpoint
-  public void updateState(WinchStates newState) {
-    currentState = newState;
-    setpoint = currentState.getWinchSetPoint();
-    pidController.setSetpoint(setpoint);
-  }
-
-  // Calculate the PID output
-  public double calculatePIDOutput() {
-    double pidOutput = pidController.calculate(getCurrentPosition(), setpoint);
-    SmartDashboard.putNumber("Winch PID Output", pidOutput);
-    return pidOutput;
-  }
-
-  // Directly control the motor speed
-  public void setMotorSpeed(double speed) {
+  public void setMotor( double speed){
     motor.set(speed);
   }
-
-  // Reset encoder position and configure settings
-  private void configureEncoder() {
-    encoder.setPosition(0);
+  public void setState(WinchStates tempState){
+    currentState = tempState;
+    desiredSetPoint = currentState.getWinchSetPoint();
   }
+  public double getPosition(){
+    return encoder.getPosition();
+  }
+  public double getDesiredSetPoint(){
+return desiredSetPoint;
+  }
+  public double getCurrentPIDOutput(){
+    return pidController.calculate(encoder.getPosition(), desiredSetPoint);
+  }
+  
+  // Reset encoder position and configure settings
+  
 
-  @Override
+   @Override
   public void periodic() {
-    // Publish encoder position and apply PID control
-    SmartDashboard.putNumber("Winch Encoder Position", getCurrentPosition());
-    setMotorSpeed(calculatePIDOutput());
+    // This method will be called once per scheduler run
+    motor.set(getCurrentPIDOutput());
   }
 }

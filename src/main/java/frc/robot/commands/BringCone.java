@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.TankDriveSub;
+import frc.robot.Constants.GrabberConstants;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -18,7 +20,8 @@ public class BringCone extends SequentialCommandGroup {
     this.driveSub = driveSub;
     addCommands();
     new DriveToDistance(driveSub, .1);
-    new DriveToDistance(driveSub, -1);
+    //new SetGrabberPivotState(driveSub, GrabberConstants.kGround);
+    new DriveToDistance(driveSub, -.1);
 
   }
 }
