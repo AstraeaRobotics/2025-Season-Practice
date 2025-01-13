@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -53,6 +54,7 @@ public class TankDrivebase extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("TankDrive Encoder", getEncoder());
     // This method will be called once per scheduler run
   }
 }
