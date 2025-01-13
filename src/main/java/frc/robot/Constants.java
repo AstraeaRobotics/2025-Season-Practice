@@ -14,11 +14,47 @@ package frc.robot;
  */
 public final class Constants {
 
-  public static class TankDriveConstants{
-    public static final double kdriveConversionFactor = 2*Math.PI*2;
-  }
-
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static class WinchConstants {
+
+    // Winch motor and encoder constants
+    public static final int kWinchPort = 0;
+    public static final double kWinchP = 0.001;
+
+    // Define states for winch
+    public enum WinchStates {
+
+      kGround(0.0, 0.01),
+      kRaised(1.5, 0),
+      kLowered(1.0, 0);
+
+      private final double winchVal;
+      private final double grabberVal;
+
+      private WinchStates(double winchVal, double grabberVal) {
+        this.winchVal = winchVal;
+        this.grabberVal = grabberVal;
+      }
+
+      public double getWinchVal() {
+        return winchVal;
+      }
+
+      public double getGrabberVal() {
+        return grabberVal;
+      }
+    }
+
+    // Placeholder for encoder to radians conversion
+    public static double kEncoderToRadians = 0.0; // Adjust as needed
+  }
+
+  public static class TankDriveConstants {
+    public static final double kdriveConversionFactor = 2 * Math.PI * 2;
+  }
+
+  // Additional constants can be added here if necessary
 }
