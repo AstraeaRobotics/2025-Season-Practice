@@ -63,8 +63,8 @@ rightMotor4.follow(leftMotor1);
     rightEncoder.setPosition(0);
 
 
-    leftEncoder.setPositionConversionFactor(Constants.TankDriveConstants.kEncoderConversionFactor);
-    rightEncoder.setPositionConversionFactor(Constants.TankDriveConstants.kEncoderConversionFactor);
+    leftEncoder.setPositionConversionFactor(Constants.TankDriveConstants.kdriveConversionFactor);
+    rightEncoder.setPositionConversionFactor(Constants.TankDriveConstants.kdriveConversionFactor);
 
 
     leftMotor1.setInverted(false);
