@@ -26,6 +26,7 @@ public class Drive extends Command {
     addRequirements(m_tanksub);
   }
 
+ 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -33,7 +34,13 @@ public class Drive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_tanksub.CurveDrive(m_speedSupplier.getAsDouble()*.15, m_turnSupplier.getAsDouble(), true);
+    double speed = m_speedSupplier.getAsDouble()*.15;
+    double turn = m_turnSupplier.getAsDouble();
+
+    if(Math.abs(speed) < .1){ speed = 0;}
+    if(Math.abs(turn) < .1){ turn = 0;}
+    
+    m_tanksub.CurveDrive(speed, turn , true);
   }
 
   // Called once the command ends or is interrupted.

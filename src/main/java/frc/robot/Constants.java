@@ -48,9 +48,9 @@ public final class Constants {
     // Define states for winch
     public enum WinchStates {
 
-      kGround(0.0),
-      kHalf(1.0),
-      kFull(1.5);
+      kGround(-10),
+      kHalf(0),
+      kFull(50);
 
       private final double winchSetPoint;
       
