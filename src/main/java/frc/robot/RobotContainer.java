@@ -69,11 +69,11 @@ public class RobotContainer {
     kCross.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kMid));
     kSquare.onTrue(new SetGrabberState(m_grabbersubsystem, GrabberStates.kHigh));
 
-    kL1.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kLow, 0.1));
-    kL2.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kMid, 0.1));
-    kL3.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kHigh, 0.1));
+    kL1.onTrue(new PivotGrabber(m_grabbersubsystem, 0.1));
+    kL2.onTrue(new PivotGrabber(m_grabbersubsystem, 0.1));
+    kL3.onTrue(new PivotGrabber(m_grabbersubsystem, 0.1));
 
-    kR3.onTrue(new TheAssignment(m_grabbersubsystem, m_TankDriveSubsystem, 0.1, 0.1, 0.1));
+    kR3.onTrue(new TheAssignment(m_grabbersubsystem, m_winchsubsystem,  m_TankDriveSubsystem, 0.1, 0.1, 0.1));
     
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
