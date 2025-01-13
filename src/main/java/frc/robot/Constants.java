@@ -27,7 +27,7 @@ public final class Constants {
     public static final double kPivotP = 0.001;
     public static final double kWinchP = 0.001;
 
-    public static final int kWinchPort = 0;
+    public static final int kWinchPort = 5;
     
     
     public enum GrabberWinchStates {
