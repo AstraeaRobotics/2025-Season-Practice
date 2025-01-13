@@ -55,17 +55,20 @@ public class TankDriveSub extends SubsystemBase {
   public void setRightMotor(double speed){
     rightMotor.set(speed);
   }
-  public double getleftPosition() {
+  public double getLeftPosition() {
     return leftEncoder.getPosition();
   }
-  public double getrightPosition() {
+  public double getRightPosition() {
     return rightEncoder.getPosition();
   }
-  public double getleftVelocity(){
+  public double getLeftVelocity(){
     return leftEncoder.getVelocity();
   }
-  public double getrightVelocity(){
+  public double getRightVelocity(){
     return rightEncoder.getVelocity();
+  }
+  public double getDistance(){
+    return leftMotor.getEncoder().getVelocity()*Math.PI*2;
   }
 
   public void CurveDrive(double speed, double turn, boolean canturninplace){
