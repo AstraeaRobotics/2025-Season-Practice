@@ -65,8 +65,8 @@ public class RobotContainer {
 
     kCircle.onTrue(new ManualWinch(m_winch, 0.1));
     kTriangle.onTrue(new ManualWinch(m_winch, -0.1));
-    kCross.onTrue(new ManualGrabber(m_grabber, 0.1));
-    kSquare.onTrue(new ManualGrabber(m_grabber, -0.1));
+    // kCross.onTrue(new ManualGrabber(m_grabber, 0.1));
+    // kSquare.onTrue(new ManualGrabber(m_grabber, -0.1));
 
   }
 

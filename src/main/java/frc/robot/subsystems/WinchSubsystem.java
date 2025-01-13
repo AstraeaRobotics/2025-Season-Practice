@@ -31,7 +31,7 @@ public class WinchSubsystem extends SubsystemBase {
     m_absEncoder.setPositionConversionFactor(Constants.GrabberWinchConstants.kEncoderToRadians);
 
     m_pid = new PIDController(Constants.GrabberWinchConstants.kWinchP, 0, 0);
-
+        
     m_state = GrabberWinchStates.kRaised;
     m_desiredSetpoint = m_state.getWinchVal();
   }

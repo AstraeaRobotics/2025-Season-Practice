@@ -57,10 +57,10 @@ public final class Constants {
   }
 
   public static class TankDrivebaseConstants{
-    public static final int kMotorLFPort = 5;
-    public static final int kMotorRFPort = 6;
-    public static final int kMotorLBPort = 7;
-    public static final int kMotorRBPort = 8; 
+    public static final int kMotorLFPort = 7;
+    public static final int kMotorRFPort = 4;
+    public static final int kMotorLBPort = 8;
+    public static final int kMotorRBPort = 6; 
   }
 
   public static final double RotToMeters = 2 * Math.PI;
