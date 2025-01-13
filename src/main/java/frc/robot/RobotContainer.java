@@ -16,6 +16,7 @@ import frc.robot.subsystems.WinchSubsystem;
 import frc.robot.commands.Grabber.*;
 import frc.robot.Constants.GrabberConstants.*;
 import frc.robot.commands.JoystickDrive;
+import frc.robot.commands.TheAssignment;
 
 
 /**
@@ -32,15 +33,16 @@ public class RobotContainer {
   private final TankDriveSubsystem m_TankDriveSubsystem = new TankDriveSubsystem();
   private final WinchSubsystem m_winchsubsystem = new WinchSubsystem();
   
-  JoystickButton kTriangle=new JoystickButton(m_controller, PS4Controller.Button.kTriangle.value);
-  JoystickButton kCross=new JoystickButton(m_controller, PS4Controller.Button.kCross.value);
-  JoystickButton kSquare=new JoystickButton(m_controller, PS4Controller.Button.kSquare.value);
-  JoystickButton kCircle=new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
+  JoystickButton kTriangle = new JoystickButton(m_controller, PS4Controller.Button.kTriangle.value);
+  JoystickButton kCross = new JoystickButton(m_controller, PS4Controller.Button.kCross.value);
+  JoystickButton kSquare = new JoystickButton(m_controller, PS4Controller.Button.kSquare.value);
+  JoystickButton kCircle = new JoystickButton(m_controller, PS4Controller.Button.kCircle.value);
   JoystickButton kL1 = new JoystickButton(m_controller, PS4Controller.Button.kL1.value);
   JoystickButton kL2 = new JoystickButton(m_controller, PS4Controller.Button.kL2.value);
   JoystickButton kL3 = new JoystickButton(m_controller, PS4Controller.Button.kL3.value);
   JoystickButton kR1 = new JoystickButton(m_controller, PS4Controller.Button.kR1.value);
   JoystickButton kR2 = new JoystickButton(m_controller, PS4Controller.Button.kR2.value);
+  JoystickButton kR3 = new JoystickButton(m_controller, PS4Controller.Button.kR3.value);
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -49,9 +51,6 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();}
   
-
- 
-
 
 /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -73,6 +72,8 @@ public class RobotContainer {
     kL1.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kLow, 0.1));
     kL2.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kMid, 0.1));
     kL3.onTrue(new PivotGrabber(m_grabbersubsystem, GrabberStates.kHigh, 0.1));
+
+    kR3.onTrue(new TheAssignment(m_grabbersubsystem, m_TankDriveSubsystem, 0.1, 0.1, 0.1));
     
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

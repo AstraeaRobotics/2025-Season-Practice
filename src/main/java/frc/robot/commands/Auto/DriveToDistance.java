@@ -9,7 +9,7 @@ import frc.robot.subsystems.TankDriveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class DriveToDistance extends Command {
-   TankDriveSubsystem m_TankDrive;
+  TankDriveSubsystem m_TankDrive;
   double m_speed;
   double m_currentDistance;
   double m_desiredDistance;

@@ -8,7 +8,9 @@ import frc.robot.commands.Auto.MoveIntake;
 import frc.robot.commands.Grabber.PivotGrabber;
 import frc.robot.commands.Auto.DriveToDistance;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.TankDriveSubsystem;
 
@@ -21,15 +23,24 @@ public class TheAssignment extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new ParallelCommandGroup(
-     new DriveToDistance(driveSub, driveSpeed, distance),
-     new PivotGrabber(grabberSub, GrabberConstants.GrabberStates.kMid, 0.1)
-     ),
-    new MoveIntake(grabberSub, intakeSpeed),
-     
-    new DriveToDistance(driveSub, -driveSpeed, distance),
+      new ParallelCommandGroup(
+        new DriveToDistance(driveSub, driveSpeed, distance),
+        new PivotGrabber(grabberSub, GrabberConstants.GrabberStates.kLow, 0.1)
+      ),
+      
+      new ParallelDeadlineGroup(
+        new MoveIntake(grabberSub, intakeSpeed),
+        new WaitCommand(1.5)
+      ),
 
-    new MoveIntake(grabberSub, -intakeSpeed));
+      new PivotGrabber(grabberSub, GrabberConstants.GrabberStates.kHigh, 0.1),
+      new DriveToDistance(driveSub, -driveSpeed, distance),
+
+      new ParallelDeadlineGroup(
+        new MoveIntake(grabberSub, -intakeSpeed),
+        new WaitCommand(1.5)
+      )
+    );
   }
 }
 

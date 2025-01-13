@@ -16,36 +16,45 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
   public static class WinchConstants {
     public static final double kEncoderConversionFactor = 2 * Math.PI;
     public static final double kP = 0.002;
     public static final double kI = 0.0;
     public static final double kD = 0.0;
+
     public enum WinchStates{
       kBottom(-250),
       kMiddle(-139),
       kTop(0);
+
       private double winchSetpoint;
+
       private WinchStates(double winchSetpoint){
         this.winchSetpoint = winchSetpoint;
       }
+
       public double getWinchSetpoint() {
         return winchSetpoint;
       }
     }
   }
+
   public static class GrabberConstants {
     public enum GrabberStates {
       kLow(0),
       kMid(10),
       kHigh(20);
+
       private double grabberSetPoint;
+
       private GrabberStates(double grabberSetPoint){
         this.grabberSetPoint=grabberSetPoint;
       }
+
       public double getGrabberSetPoint() {
         return grabberSetPoint;
       }
     }
   }
-  }
+}

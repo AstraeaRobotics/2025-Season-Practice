@@ -12,12 +12,14 @@ import frc.robot.subsystems.TankDriveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class JoystickDrive extends Command {
+
   TankDriveSubsystem driveSub;
   DoubleSupplier joystickValue;
+
   /** Creates a new TankDrive. */
   public JoystickDrive(TankDriveSubsystem driveSub, DoubleSupplier joystickValue) {
-    this.driveSub=driveSub;
-    this.joystickValue=joystickValue;
+    this.driveSub = driveSub;
+    this.joystickValue = joystickValue;
     addRequirements(driveSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -31,8 +33,10 @@ public class JoystickDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystickValue.getAsDouble()>=0.01){
+    if (Math.abs(joystickValue.getAsDouble()) >= 0.01){
       driveSub.setMotors(joystickValue.getAsDouble());
+    } else {
+      driveSub.setMotors(0);
     }
   }
 

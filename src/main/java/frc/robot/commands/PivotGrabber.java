@@ -19,9 +19,9 @@ public class PivotGrabber extends Command {
 
   /** Creates a new MoveToGrabberState. */
   public PivotGrabber(GrabberSubsystem grabberSub, GrabberStates state, double speed) {
-    this.grabberSub=grabberSub;
-    this.speed=speed;
-    this.state=state;
+    this.grabberSub = grabberSub;
+    this.speed = speed;
+    this.state = state;
     addRequirements(grabberSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -37,7 +37,8 @@ public class PivotGrabber extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentSetPoint=grabberSub.getPivotEncoder();
+    currentSetPoint = grabberSub.getPivotEncoder();
+
     if (grabberSetPoint>currentSetPoint){
       grabberSub.movePivotMotor(speed);
     }
@@ -58,7 +59,11 @@ public class PivotGrabber extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(currentSetPoint-grabberSetPoint)<0.5) {return true;}
-    else {return false;}
+    if (Math.abs(currentSetPoint-grabberSetPoint)<0.5) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

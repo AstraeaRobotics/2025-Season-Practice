@@ -13,11 +13,13 @@ import frc.robot.subsystems.GrabberSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SetGrabberState extends InstantCommand {
+
   GrabberSubsystem grabberSub;
   GrabberStates state;
+  
   public SetGrabberState(GrabberSubsystem grabberSub, GrabberStates state) {
-    this.grabberSub= grabberSub;
-    this.state= state;
+    this.grabberSub = grabberSub;
+    this.state = state;
     addRequirements(grabberSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }

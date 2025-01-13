@@ -29,24 +29,22 @@ public class PivotGrabber extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    state=grabberSub.getState();
-    grabberSetPoint=state.getGrabberSetPoint();
+    state = grabberSub.getState();
+    grabberSetPoint = state.getGrabberSetPoint();
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-currentSetPoint=grabberSub.getPivotEncoder();
-if (grabberSetPoint>currentSetPoint){
-  grabberSub.movePivotMotor(speed);
-}
-else if (grabberSetPoint<currentSetPoint){
-  grabberSub.movePivotMotor(-speed);
-}
-else {
-  grabberSub.movePivotMotor(0);
-}
+    currentSetPoint = grabberSub.getPivotEncoder();
+    if (grabberSetPoint>currentSetPoint){
+      grabberSub.movePivotMotor(speed);
+    } else if (grabberSetPoint<currentSetPoint){
+      grabberSub.movePivotMotor(-speed);
+    } else {
+      grabberSub.movePivotMotor(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
