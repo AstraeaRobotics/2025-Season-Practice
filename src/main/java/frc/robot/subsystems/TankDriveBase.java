@@ -12,23 +12,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TankDriveBaseConstants;
 
 public class TankDriveBase extends SubsystemBase {
-  CANSparkMax leftMotor1;
-  CANSparkMax leftMotor2;
-  CANSparkMax rightMotor1;  
-  CANSparkMax rightMotor2;
+  CANSparkMax leftFrontMotor;
+  CANSparkMax leftBackMotor;
+  CANSparkMax rightFrontMotor;  
+  CANSparkMax rightBackMotor;
 
   RelativeEncoder leftEncoder;
   RelativeEncoder rightEncoder;
 
   /** Creates a new TankDriveBase. */
   public TankDriveBase() {
-    leftMotor1 = new CANSparkMax(0, MotorType.kBrushless);
-    leftMotor2 = new CANSparkMax(0, MotorType.kBrushless);
-    rightMotor1 = new CANSparkMax(0, MotorType.kBrushless);
-    rightMotor2 = new CANSparkMax(0, MotorType.kBrushless);
+    leftFrontMotor = new CANSparkMax(0, MotorType.kBrushless);
+    leftBackMotor = new CANSparkMax(0, MotorType.kBrushless);
+    rightFrontMotor = new CANSparkMax(0, MotorType.kBrushless);
+    rightBackMotor = new CANSparkMax(0, MotorType.kBrushless);
 
-    leftEncoder = leftMotor1.getEncoder();
-    rightEncoder = rightMotor1.getEncoder();
+    leftEncoder = leftFrontMotor.getEncoder();
+    rightEncoder = rightFrontMotor.getEncoder();
 
 
     configureMotors();
@@ -43,24 +43,24 @@ public class TankDriveBase extends SubsystemBase {
     rightEncoder.setPositionConversionFactor((TankDriveBaseConstants.kWheelDiameterMeters* Math.PI)/TankDriveBaseConstants.kGearRatio);
  
 
-    leftMotor1.setInverted(false);
-    leftMotor2.setInverted(false);
-    rightMotor1.setInverted(true);
-    rightMotor2.setInverted(true);
+    leftFrontMotor.setInverted(false);
+    leftBackMotor.setInverted(false);
+    rightFrontMotor.setInverted(true);
+    rightBackMotor.setInverted(true);
   }
 
   public void setMotors(double speed) {
-    leftMotor1.set(speed);
-    leftMotor2.set(speed);
-    rightMotor1.set(speed);
-    rightMotor2.set(speed);
+    leftFrontMotor.set(speed);
+    leftBackMotor.set(speed);
+    rightFrontMotor.set(speed);
+    rightBackMotor.set(speed);
   }
 
   public void moveMotors(double leftSpeed, double rightSpeed) {
-    leftMotor1.set(leftSpeed);
-    leftMotor2.set(leftSpeed);
-    rightMotor1.set(rightSpeed);
-    rightMotor2.set(rightSpeed);
+    leftFrontMotor.set(leftSpeed);
+    leftBackMotor.set(leftSpeed);
+    rightFrontMotor.set(rightSpeed);
+    rightBackMotor.set(rightSpeed);
   } 
 
   public double getLeftEncoder1Position() {

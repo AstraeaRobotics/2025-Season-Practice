@@ -9,11 +9,11 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TankDriveBase;
 
-public class TankDrive extends Command {
+public class TeleopDrive extends Command {
   TankDriveBase driveBase;
   DoubleSupplier yspeed;
   /** Creates a new TankDrive. */
-  public TankDrive(TankDriveBase driveBase, DoubleSupplier yspeed) {
+  public TeleopDrive(TankDriveBase driveBase, DoubleSupplier yspeed) {
     this.yspeed = yspeed;
     this.driveBase = driveBase;
 

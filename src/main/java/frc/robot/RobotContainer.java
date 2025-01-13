@@ -14,7 +14,7 @@ import frc.robot.Constants.GrabberConstants.GrabberStates;
 import frc.robot.Constants.WinchConstants.WinchStates;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.TankDrive;
+import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.Grabber.PivotGrabber;
 import frc.robot.commands.Winch.MoveWinch;
 import frc.robot.commands.Winch.SetState;
@@ -53,7 +53,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_TankDriveBase.setDefaultCommand(new TankDrive(m_TankDriveBase, m_Controller::getLeftY));
+    m_TankDriveBase.setDefaultCommand(new TeleopDrive(m_TankDriveBase, m_Controller::getLeftY));
     // Configure the trigger bindings
     configureBindings();
   }
