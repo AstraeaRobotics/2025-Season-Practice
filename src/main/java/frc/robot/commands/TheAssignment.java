@@ -29,7 +29,7 @@ public class TheAssignment extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         //new DriveToDistance(driveSub, driveSpeed, distance),
-        new SetGrabberState(grabberSub, GrabberStates.kMid),
+        new SetGrabberState(grabberSub, GrabberStates.kLow),
         new SetWinchState(winchSub, WinchStates.kBottom)
       ),
 
